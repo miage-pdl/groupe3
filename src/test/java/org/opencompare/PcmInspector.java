@@ -95,7 +95,7 @@ public class PcmInspector {
                     // Calculate frequencies by type
                     boolean isNumeric = checker.isValidNumeric(content);
                     //boolean isNumeric = cell.getContent().chars().allMatch( Character::isDigit );
-                    type = isNumeric ? "Integer": "Float" ;
+                    type = isNumeric ? "Integer": "String" ;
                     generalCountCells("frequenciesTypes", type);
                     
                 }
@@ -131,7 +131,7 @@ public class PcmInspector {
     
 	/**
 	 * This method is used to calculate the frequency of a value
-	 * inside an specific Frequency HashMap.
+	 * inside a specific Frequency HashMap.
 	 * @param frequencyName
 	 * @param content
 	 */
