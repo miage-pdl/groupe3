@@ -15,10 +15,6 @@ import org.apache.poi.ss.usermodel.Cell;
 
 public class CSVToExcelConverter {
 
-    public static void main(String args[]) throws IOException
-    {
-//main method ends
-    }
 
 	public void converter(String outputFile, String name) throws IOException {
 		
