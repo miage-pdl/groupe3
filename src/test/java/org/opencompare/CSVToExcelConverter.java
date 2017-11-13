@@ -40,7 +40,6 @@ public class CSVToExcelConverter {
                 al.add(strar[j]);
             }
             arList.add(al);
-            System.out.println();
             i++;
         }
 
@@ -73,7 +72,7 @@ public class CSVToExcelConverter {
                     //*/
                     // cell.setCellValue(ardata.get(p).toString());
                 }
-                System.out.println();
+                
             }
             String out = "xls/" + name +".xls";
             FileOutputStream fileOut = new FileOutputStream(out);
