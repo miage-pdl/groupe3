@@ -80,7 +80,7 @@ public class PcmInspector {
             cellProducts = 0;
             cellFeatures = 0;
             
-            System.out.println("Procesing file: " + file.getCanonicalPath());
+            // System.out.println("Procesing file: " + file.getCanonicalPath());
 
             // Define a file representing a PCM to load
             File pcmFile = new File(file.getCanonicalPath());
@@ -104,18 +104,33 @@ public class PcmInspector {
 
                 // Calculate frequencies by features
                 for (Feature feature: pcm.getConcreteFeatures()) {
-                    generalCountCells("frequenciesFeatures", feature.getName());
+                		cellFeatures++;
+                		if(feature.getName() != null) {
+                			generalCountCells("frequenciesFeatures", feature.getName());
+                    }else {
+                    		generalCountCells("frequenciesFeatures", "null");
+                    }
                 }
 
                 // Browse the cells of the PCM
                 for (Product product: pcm.getProducts()) {
-
+                		cellProducts++;
                     // Calculate frequencies by products
-                    generalCountCells("frequenciesProducts", product.getKeyContent());
+                		try {
+                    		if(product.getKeyContent() != null) {
+                    			generalCountCells("frequenciesProducts", product.getKeyContent());
+                    		}else {
+                    			generalCountCells("frequenciesProducts", "null");	
+                    		}                			
+                		}catch(Exception e) {
+                			// System.out.println("Feature error");
+                		}
 
+                    
+                    //System.out.println(product.getKeyContent().toString());
                     for (Feature feature: pcm.getConcreteFeatures()) {
-
-                        // Find the cell corresponding to the current feature and product
+                    		
+                        // Find the cel l corresponding to the current feature and product
                         Cell cell = product.findCell(feature);
                         cellCounter++;
                         // Get information contained in the cell
@@ -127,7 +142,7 @@ public class PcmInspector {
                                  generalCountCells("frequenciesCells", content);
                         		}
                         } catch (Exception e) {
-                        	    System.out.println("Error reading cell content");	
+                        	    //System.out.println("Error reading cell content");	
                         }
 
                         try {
@@ -151,11 +166,12 @@ public class PcmInspector {
                 // Write CSV content to file
                 Path outputFile = Files.createTempFile(file.getName(), ".csv");
                 Files.write(outputFile, csv.getBytes());
-                CSVToExcelConverter converter = new CSVToExcelConverter();
-                converter.converter(outputFile.toString(), file.getName());
+                //CSVToExcelConverter converter = new CSVToExcelConverter();
+                
+                //converter.converter(outputFile.toString(), file.getName());
 
                 Integer taille = cellFeatures * cellProducts;
-                String data = file.getName() + ',' + cellCounter.toString() + ',' + cellFeatures + ',' + cellProducts + ',' + taille.toString();
+                String data = file.getName() + ',' + cellFeatures + ',' + cellProducts + ',' + taille.toString();
                 bw.write(data);
                 bw.newLine();
 
@@ -176,10 +192,10 @@ public class PcmInspector {
      */
     public void exploreFrequencies(Map < String, HashMap < String, Integer >> mapOfFrequencies) throws IOException {
 
-        showFrequencesHash(mapOfFrequencies.get("frequenciesCells"), FREQUENCY_CELLS);
-        showFrequencesHash(mapOfFrequencies.get("frequenciesFeatures"), FREQUENCY_FEATURES);
-        showFrequencesHash(mapOfFrequencies.get("frequenciesProducts"), FREQUENCY_PRODUCTS);
-        showFrequencesHash(mapOfFrequencies.get("frequenciesTypes"), FREQUENCY_TYPES);
+        //showFrequencesHash(mapOfFrequencies.get("frequenciesCells"), FREQUENCY_CELLS);
+        //showFrequencesHash(mapOfFrequencies.get("frequenciesFeatures"), FREQUENCY_FEATURES);
+        //showFrequencesHash(mapOfFrequencies.get("frequenciesProducts"), FREQUENCY_PRODUCTS);
+        //showFrequencesHash(mapOfFrequencies.get("frequenciesTypes"), FREQUENCY_TYPES);
 
         createFrequenciesFile(mapOfFrequencies.get("frequenciesCells"), FREQUENCY_CELLS);
         createFrequenciesFile(mapOfFrequencies.get("frequenciesFeatures"), FREQUENCY_FEATURES);
@@ -213,8 +229,8 @@ public class PcmInspector {
      */
     public void generalCountCells(String frequencyName, String content) {
 
-        mapOfFrequencies.get(frequencyName).computeIfAbsent(content, val -> 0);
-        mapOfFrequencies.get(frequencyName).computeIfPresent(content, (key, oldVal) -> oldVal + 1);
+        mapOfFrequencies.get(frequencyName).computeIfAbsent(content.toLowerCase(), val -> 0);
+        mapOfFrequencies.get(frequencyName).computeIfPresent(content.toLowerCase(), (key, oldVal) -> oldVal + 1);
 
     }
 
