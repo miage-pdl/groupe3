@@ -1,1 +1,11 @@
 /target/
+*.csv
+*.project
+*.xls
+/pcms/
+~$*.xls*
+.settings/
+.classpath
+.project
+*.zip
+*.pcm
