@@ -31,6 +31,8 @@ public class PcmInspector {
 	public Map<String,HashMap<String, Integer>> mapOfFrequencies = new HashMap<String, HashMap<String, Integer>>();	
 	
     // HashMap to store the processed information from the PCM file
+
+
     public HashMap<String, Integer> frequenciesCells = new HashMap<>();
     public HashMap<String, Integer> frequenciesFeatures = new HashMap<>();
     public HashMap<String, Integer> frequenciesProducts = new HashMap<>();
