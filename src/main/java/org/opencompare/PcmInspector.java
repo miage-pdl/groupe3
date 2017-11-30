@@ -63,12 +63,11 @@ public class PcmInspector {
         mapOfFrequencies.put("frequenciesProducts", frequenciesProducts);
         mapOfFrequencies.put("frequenciesTypes", frequenciesTypes);
 
-        File dir = new File("pcms");
+        File dir = new File("pcms2");
         String[] extensions = new String[] {
             "pcm"
         };
         List < File > files = (List < File > ) FileUtils.listFiles(dir, extensions, true);
-
 
         File fout = new File("data.csv");
         FileOutputStream fos = new FileOutputStream(fout);
@@ -106,7 +105,7 @@ public class PcmInspector {
                 for (Feature feature: pcm.getConcreteFeatures()) {
                 		cellFeatures++;
                 		if(feature.getName() != null) {
-                			generalCountCells("frequenciesFeatures", feature.getName());
+                			generalCountCells("frequenciesFeatures", '"' + feature.getName() + '"');
                     }else {
                     		generalCountCells("frequenciesFeatures", "null");
                     }
@@ -118,7 +117,7 @@ public class PcmInspector {
                     // Calculate frequencies by products
                 		try {
                     		if(product.getKeyContent() != null) {
-                    			generalCountCells("frequenciesProducts", product.getKeyContent());
+                    			generalCountCells("frequenciesProducts", '"' + product.getKeyContent() + '"');
                     		}else {
                     			generalCountCells("frequenciesProducts", "null");	
                     		}                			
@@ -137,9 +136,9 @@ public class PcmInspector {
                         String content;
                         try {
                             // Calculate frequencies by cells
-                        		content = cell.getContent().replace("\n", "").replace("\r", "").replace(",", " ");
+                        		content = cell.getContent();
                         		if(content != null) {
-                                 generalCountCells("frequenciesCells", content);
+                                 generalCountCells("frequenciesCells", '"' + content + '"');
                         		}
                         } catch (Exception e) {
                         	    //System.out.println("Error reading cell content");	
@@ -171,7 +170,7 @@ public class PcmInspector {
                 //converter.converter(outputFile.toString(), file.getName());
 
                 Integer taille = cellFeatures * cellProducts;
-                String data = file.getName() + ',' + cellFeatures + ',' + cellProducts + ',' + taille.toString();
+                String data = '"' + file.getName() + '"' + ',' + cellFeatures + ',' + cellProducts + ',' + taille.toString();
                 bw.write(data);
                 bw.newLine();
 
