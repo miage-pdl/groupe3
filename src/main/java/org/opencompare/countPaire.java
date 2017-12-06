@@ -1,6 +1,6 @@
 package org.opencompare;
 
-import org.junit.Test;
+
 import org.opencompare.api.java.PCM;
 import org.opencompare.api.java.PCMContainer;
 import org.opencompare.api.java.Product;
@@ -20,7 +20,6 @@ public class countPaire {
 
     int countPcm = 0 ;
 
-    @Test
     public void testCountPaire() throws IOException {
 
 

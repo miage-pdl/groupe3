@@ -30,7 +30,7 @@ public class CSVToExcelConverter {
         while ((thisLine = myInput.readLine()) != null)
         {
             al = new ArrayList();
-            String strar[] = thisLine.split(",");
+            String strar[] = thisLine.split("...,");
             for(int j=0;j<strar.length;j++)
             {
                 al.add(strar[j]);
