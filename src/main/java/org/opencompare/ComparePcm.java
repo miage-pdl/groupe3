@@ -182,9 +182,14 @@ public class ComparePcm {
 
         }else {
             for (Product product:productsA){
-                for (Product product1: productsB){
-                    compareTwoProduc(i1, i2, product,product1,localfeaturesPCMAB.keySet());
+                i1++;
+                findbreak:for (Product product1: productsB){
+                    i2++;
+                    if ( compareTwoProduc(i1, i2, product,product1,localfeaturesPCMAB.keySet())){
+                        break findbreak;
+                    }
                 }
+                i2 = 0 ;
             }
         }
 
@@ -202,7 +207,8 @@ public class ComparePcm {
             System.out.println("");
         }
         }else {
-            System.out.println(ConsoleColors.BLUE + " Ces desux PCM n'ont  aucune Correspondence of Produit " + ConsoleColors.RESET);
+            System.out.println("");
+            System.out.println(ConsoleColors.BLUE + " Ces desux PCM n'ont  aucune Correspondence of Product by Feature " + ConsoleColors.RESET);
 
         }
 
@@ -210,7 +216,11 @@ public class ComparePcm {
 
     public Boolean compareTwoProduc(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
         int i = 0;
-
+/*
+pour ameliorer on peut retirer les produits deja trouver
+Mais si un produit existe en deux examplaires ??? on fais quoi ??
+??? probleme d'unicite des product
+ */
         for (Feature feature : features) {
             if (productA.findCell(feature).equals(productB.findCell(feature))) {
                 i++;

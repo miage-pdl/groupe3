@@ -21,6 +21,8 @@ public class ComparePcmTest {
     File pcmFileC = new File("pcms/List_of_Nvidia_graphics_processing_units_35.pcm");
     File pcmFileD = new File("pcms/List_of_Nvidia_graphics_processing_units_34.pcm");
     File pcmFileE = new File("pcms/List_of_Nvidia_graphics_processing_units_39.pcm");
+    File pcmFileF = new File("pcms/Comparison_of_file_comparison_tools_2.pcm");
+    File pcmFileG = new File("pcms/Comparison_of_VoIP_software_1.pcm");
 
 
     PCM pcmA = null;
@@ -44,8 +46,8 @@ public class ComparePcmTest {
     @Test
     public void compareProduit() throws Exception {
         try {
-            pcmA = loader.load(pcmFileA).get(0).getPcm();
-            pcmB = loader.load(pcmFileC).get(0).getPcm();
+            pcmA = loader.load(pcmFileE).get(0).getPcm();
+            pcmB = loader.load(pcmFileE).get(0).getPcm();
         } catch (IOException e) {
             e.printStackTrace();
         }
