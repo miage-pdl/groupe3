@@ -13,10 +13,10 @@ public class ComparePcm {
         2 list and give pourcent of similarity }
      */
 
-    HashMap<Feature, Integer> featuresPCMA = new HashMap<>();
-    HashMap<Feature, Integer> featuresPCMB = new HashMap<>();
+    private HashMap<Feature, Integer> featuresPCMA = new HashMap<>();
+    private HashMap<Feature, Integer> featuresPCMB = new HashMap<>();
 
-    HashMap<Feature, Integer> featuresPCMAB = new HashMap<>();
+    private HashMap<Feature, Integer> featuresPCMAB = new HashMap<>();
 
     /*
     recuperation des pcn a comparer faire une fonction pour ca apres
@@ -46,7 +46,7 @@ public class ComparePcm {
             Aissmall = false;
             for (Feature feature : featuresPCMB.keySet()) {
                 if (featuresPCMA.computeIfPresent(feature, (key, oldVal) -> oldVal + 1) != null) {
-                    featuresPCMAB.computeIfAbsent(feature, val -> 0);
+                    featuresPCMAB.putIfAbsent(feature, 0);
                     featuresPCMAB.computeIfPresent(feature, (key, oldVal) -> oldVal + 1);
                     featuresPCMB.computeIfPresent(feature, (key, oldVal) -> oldVal + 1);
                 }
@@ -54,7 +54,7 @@ public class ComparePcm {
         } else {
             for (Feature feature : featuresPCMA.keySet()) {
                 if (featuresPCMB.computeIfPresent(feature, (key, oldVal) -> oldVal + 1) != null) {
-                    featuresPCMAB.computeIfAbsent(feature, val -> 0);
+                    featuresPCMAB.putIfAbsent(feature, 0);
                     featuresPCMAB.computeIfPresent(feature, (key, oldVal) -> oldVal + 1);
                     featuresPCMA.computeIfPresent(feature, (key, oldVal) -> oldVal + 1);
                 }
@@ -103,7 +103,7 @@ public class ComparePcm {
         }
         System.out.println("");
         System.out.println(" Count = " + ei);
-        ei = 0;
+
         if (Aissmall) {
             for (int i = 0; i < featuresPCMB.size() + 30; i++) {
                 System.out.print("__");

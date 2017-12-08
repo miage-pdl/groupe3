@@ -16,7 +16,7 @@ public class ComparePcmTest {
 
     //PCM
     File pcmFileA = new File("pcms/Comparison_of_file_comparison_tools_2.pcm");
-    File pcmFileB = new File("pcms/List_of_Nvidia_graphics_processing_units_39.pcm");
+    File pcmFileB = new File("pcms/List_of_Nvidia_graphics_processing_units_29.pcm");
     File pcmFileC = new File("pcms/List_of_Nvidia_graphics_processing_units_35.pcm");
 
 
