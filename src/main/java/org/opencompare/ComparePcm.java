@@ -32,7 +32,7 @@ public class ComparePcm {
 
     public void compareFeature(PCM pcmA, PCM pcmB) {
 
-
+        featuresPCMAB.clear();
         int ei = 0;
 
         Boolean Aissmall = true;
@@ -127,6 +127,9 @@ public class ComparePcm {
         }
         System.out.println("");
         System.out.println(" Count = " + featuresPCMAB.size());
+        if (featuresPCMAB.size() == 0 ){
+            System.out.println(ConsoleColors.BLUE +" Count = " + featuresPCMAB.size() + " Ces desux PCM n'ont  aucune Correspondence of Feature "+ ConsoleColors.RESET);
+        }
         System.out.println("");
         if (Aissmall) {
             for (int i = 0; i < featuresPCMAB.size() + 30; i++) {
@@ -142,6 +145,90 @@ public class ComparePcm {
     }
 
     public void compareProduit(PCM pcmA, PCM pcmB) {
+        Boolean AiSmall = true;
+        compareFeature(pcmA, pcmB);
+
+        List<Product> productsA = new ArrayList<>();
+        List<Product> productsB = new ArrayList<>();
+
+        HashMap<Feature, Integer> featuresPCMA = new HashMap<>();
+        HashMap<Feature, Integer> featuresPCMB = new HashMap<>();
+
+        HashMap<Feature, Integer> localfeaturesPCMAB = (HashMap<Feature, Integer>) featuresPCMAB.clone();
+
+        /*
+        verifier i les pcm on des features en commun avant de commencer
+         */
+        if (localfeaturesPCMAB.size() != 0){
+        productsA = pcmA.getProducts();
+        productsB = pcmB.getProducts();
+        System.out.println("");
+        System.out.println(" - A pr Sieze = " + productsA.size());
+        System.out.println(" - B pr Sieze = " + productsB.size());
+        int i1 = 0 ;
+        int i2 = 0 ;
+        if (productsA.size() >= productsB.size()) {
+            AiSmall = false;
+            for (Product product:productsB){
+                i1++;
+                findbreak:for (Product product1: productsA){
+                    i2++;
+                  if ( compareTwoProduc(i1,i2,product,product1,localfeaturesPCMAB.keySet())){
+                      break findbreak;
+                  }
+                }
+                i2 = 0 ;
+            }
+
+        }else {
+            for (Product product:productsA){
+                for (Product product1: productsB){
+                    compareTwoProduc(i1, i2, product,product1,localfeaturesPCMAB.keySet());
+                }
+            }
+        }
+
+
+        System.out.println("");
+        for (Product product1 : pcmA.getProducts()) {
+            System.out.println(" - " + product1.getCells() + " - ");
+            System.out.println("");
+        }
+
+
+        System.out.println("");
+        for (Product product1 : pcmB.getProducts()) {
+            System.out.println(" - " + product1.getCells() + " - ");
+            System.out.println("");
+        }
+        }else {
+            System.out.println(ConsoleColors.BLUE + " Ces desux PCM n'ont  aucune Correspondence of Produit " + ConsoleColors.RESET);
+
+        }
+
+    }
+
+    public Boolean compareTwoProduc(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
+        int i = 0;
+
+        for (Feature feature : features) {
+            if (productA.findCell(feature).equals(productB.findCell(feature))) {
+                i++;
+            }
+        }
+        if (i != features.size()){
+            if (i>=(features.size()/2)){
+                System.out.println(ConsoleColors.BLUE + "taux  Correspondence Produit "+ i1+" Produit ="+ i2+" => " + i + " / " + features.size() + ConsoleColors.RESET);
+            }else {
+                System.out.println(ConsoleColors.RED + "taux  Correspondence Produit "+ i1+" Produit ="+ i2+" => " + i + " / " + features.size() + ConsoleColors.RESET);
+            }
+        }else {
+            System.out.println(ConsoleColors.GREEN+ "taux  Correspondence Produit Parfait "+ i1+" Produit ="+ i2+" => " + i + " / " + features.size() + ConsoleColors.RESET);
+            return true ;
+        }
+
+        return false ;
+
     }
 
 }
