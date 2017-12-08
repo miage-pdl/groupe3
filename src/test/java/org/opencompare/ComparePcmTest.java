@@ -14,10 +14,11 @@ import static org.junit.Assert.*;
 
 public class ComparePcmTest {
 
-    //PCM A
+    //PCM
     File pcmFileA = new File("pcms/Comparison_of_file_comparison_tools_2.pcm");
-    //PCM B
-    File pcmFileB = new File("pcms/example.pcm");
+    File pcmFileB = new File("pcms/List_of_Nvidia_graphics_processing_units_39.pcm");
+    File pcmFileC = new File("pcms/List_of_Nvidia_graphics_processing_units_35.pcm");
+
 
     PCM pcmA = null;
     PCM pcmB = null;
@@ -27,8 +28,8 @@ public class ComparePcmTest {
     @Test
     public void compareFeature() throws Exception {
         try {
-            pcmA = loader.load(pcmFileA).get(0).getPcm();
-            pcmB = loader.load(pcmFileA).get(0).getPcm();
+            pcmA = loader.load(pcmFileB).get(0).getPcm();
+            pcmB = loader.load(pcmFileC).get(0).getPcm();
         } catch (IOException e) {
             e.printStackTrace();
         }
