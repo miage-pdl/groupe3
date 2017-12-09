@@ -9,7 +9,7 @@ public class ComparePcm {
 
 
     /*
-    mision : 1 Compare two pcm by her features{
+    mision OK : 1 Compare two pcm by her features{
         2 list and give pourcent of similarity }
      */
 
