@@ -15,8 +15,10 @@ public class ComparePcm {
 
     private HashMap<Feature, Integer> featuresPCMA = new HashMap<>();
     private HashMap<Feature, Integer> featuresPCMB = new HashMap<>();
-
     private HashMap<Feature, Integer> featuresPCMAB = new HashMap<>();
+
+
+    public static final String PCM_OBJECT_NAME = "org.opencompare.api.java.impl.value.";
 
     /*
     recuperation des pcn a comparer faire une fonction pour ca apres
@@ -127,8 +129,8 @@ public class ComparePcm {
         }
         System.out.println("");
         System.out.println(" Count = " + featuresPCMAB.size());
-        if (featuresPCMAB.size() == 0 ){
-            System.out.println(ConsoleColors.BLUE +" Count = " + featuresPCMAB.size() + " Ces desux PCM n'ont  aucune Correspondence of Feature "+ ConsoleColors.RESET);
+        if (featuresPCMAB.size() == 0) {
+            System.out.println(ConsoleColors.BLUE + " Count = " + featuresPCMAB.size() + " Ces desux PCM n'ont  aucune Correspondence of Feature " + ConsoleColors.RESET);
         }
         System.out.println("");
         if (Aissmall) {
@@ -159,54 +161,58 @@ public class ComparePcm {
         /*
         verifier i les pcm on des features en commun avant de commencer
          */
-        if (localfeaturesPCMAB.size() != 0){
-        productsA = pcmA.getProducts();
-        productsB = pcmB.getProducts();
-        System.out.println("");
-        System.out.println(" - A pr Sieze = " + productsA.size());
-        System.out.println(" - B pr Sieze = " + productsB.size());
-        int i1 = 0 ;
-        int i2 = 0 ;
-        if (productsA.size() >= productsB.size()) {
-            AiSmall = false;
-            for (Product product:productsB){
-                i1++;
-                findbreak:for (Product product1: productsA){
-                    i2++;
-                  if ( compareTwoProduc(i1,i2,product,product1,localfeaturesPCMAB.keySet())){
-                      break findbreak;
-                  }
-                }
-                i2 = 0 ;
-            }
-
-        }else {
-            for (Product product:productsA){
-                i1++;
-                findbreak:for (Product product1: productsB){
-                    i2++;
-                    if ( compareTwoProduc(i1, i2, product,product1,localfeaturesPCMAB.keySet())){
-                        break findbreak;
+        if (localfeaturesPCMAB.size() != 0) {
+            productsA = pcmA.getProducts();
+            productsB = pcmB.getProducts();
+            System.out.println("");
+            System.out.println(" - A pr Sieze = " + productsA.size());
+            System.out.println(" - B pr Sieze = " + productsB.size());
+            int i1 = 0;
+            int i2 = 0;
+            if (productsA.size() >= productsB.size()) {
+                AiSmall = false;
+                for (Product product : productsB) {
+                    i1++;
+                    findbreak:
+                    for (Product product1 : productsA) {
+                        i2++;
+                        // if ( compareTwoProduc(i1,i2,product,product1,localfeaturesPCMAB.keySet())){
+                        if (compareTwoProducByTypeOfCell(i1, i2, product, product1, localfeaturesPCMAB.keySet())) {
+                            break findbreak;
+                        }
                     }
+                    i2 = 0;
                 }
-                i2 = 0 ;
+
+            } else {
+                for (Product product : productsA) {
+                    i1++;
+                    findbreak:
+                    for (Product product1 : productsB) {
+                        i2++;
+                        //    if ( compareTwoProduc(i1, i2, product,product1,localfeaturesPCMAB.keySet())){
+                        if (compareTwoProducByTypeOfCell(i1, i2, product, product1, localfeaturesPCMAB.keySet())) {
+                            break findbreak;
+                        }
+                    }
+                    i2 = 0;
+                }
             }
-        }
 
 
-        System.out.println("");
-        for (Product product1 : pcmA.getProducts()) {
-            System.out.println(" - " + product1.getCells() + " - ");
             System.out.println("");
-        }
+            for (Product product1 : pcmA.getProducts()) {
+                System.out.println(" - " + product1.getCells() + " - ");
+                System.out.println("");
+            }
 
 
-        System.out.println("");
-        for (Product product1 : pcmB.getProducts()) {
-            System.out.println(" - " + product1.getCells() + " - ");
             System.out.println("");
-        }
-        }else {
+            for (Product product1 : pcmB.getProducts()) {
+                System.out.println(" - " + product1.getCells() + " - ");
+                System.out.println("");
+            }
+        } else {
             System.out.println("");
             System.out.println(ConsoleColors.BLUE + " Ces desux PCM n'ont  aucune Correspondence of Product by Feature " + ConsoleColors.RESET);
 
@@ -214,31 +220,82 @@ public class ComparePcm {
 
     }
 
+    /**
+     * Compare deux produits par la valeur des cells pour la quelle il partage le meme feature
+     *
+     * @param i1
+     * @param i2
+     * @param productA produit A
+     * @param productB produit A
+     * @param features liste des features
+     * @return true si les produit Correspondence
+     */
     public Boolean compareTwoProduc(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
         int i = 0;
-/*
-pour ameliorer on peut retirer les produits deja trouver
-Mais si un produit existe en deux examplaires ??? on fais quoi ??
-??? probleme d'unicite des product
- */
+        /*
+        pour ameliorer on peut retirer les produits deja trouver
+        Mais si un produit existe en deux examplaires ??? on fais quoi ??
+        ??? probleme d'unicite des product
+         */
         for (Feature feature : features) {
             if (productA.findCell(feature).equals(productB.findCell(feature))) {
                 i++;
             }
         }
-        if (i != features.size()){
-            if (i>=(features.size()/2)){
-                System.out.println(ConsoleColors.BLUE + "taux  Correspondence Produit "+ i1+" Produit ="+ i2+" => " + i + " / " + features.size() + ConsoleColors.RESET);
-            }else {
-                System.out.println(ConsoleColors.RED + "taux  Correspondence Produit "+ i1+" Produit ="+ i2+" => " + i + " / " + features.size() + ConsoleColors.RESET);
+        if (i != features.size()) {
+            if (i >= (features.size() / 2)) {
+                System.out.println(ConsoleColors.BLUE + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
+            } else {
+                System.out.println(ConsoleColors.RED + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
             }
-        }else {
-            System.out.println(ConsoleColors.GREEN+ "taux  Correspondence Produit Parfait "+ i1+" Produit ="+ i2+" => " + i + " / " + features.size() + ConsoleColors.RESET);
-            return true ;
+        } else {
+            System.out.println(ConsoleColors.GREEN + "taux  Correspondence Produit Parfait " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
+            return true;
         }
 
-        return false ;
+        return false;
 
     }
+
+
+    public Boolean compareTwoProducByTypeOfCell(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
+        int i = 0;
+
+        /*
+        pour ameliorer on peut retirer les produits deja trouver
+        Mais si un produit existe en deux examplaires ??? on fais quoi ??
+        ??? probleme d'unicite des product
+         */
+
+        for (Feature feature : features) {
+
+
+
+            if (
+                    (productA.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, ""))
+                            .equals(
+                                    (productB.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "")))) {
+                   System.out.println(i1 + " -> " + productA.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "" ) + " | " + i2 + " -> " + productB.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") );
+                i++;
+            }else {
+                System.out.println(ConsoleColors.RED +i1 + " -> " + productA.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") + " | " + i2 + " -> " + productB.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") + ConsoleColors.RESET);
+
+            }
+        }
+        if (i != features.size()) {
+            if (i >= (features.size() / 2)) {
+                System.out.println(ConsoleColors.BLUE + "taux type Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
+            } else {
+                System.out.println(ConsoleColors.RED + "taux type Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
+            }
+        } else {
+            System.out.println(ConsoleColors.GREEN + "taux type Correspondence Produit Parfait " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
+            return true;
+        }
+
+        return false;
+
+    }
+
 
 }

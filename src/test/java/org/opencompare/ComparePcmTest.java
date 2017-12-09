@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 public class ComparePcmTest {
 
 
+
     //PCM
     File pcmFileA = new File("pcms/Comparison_of_file_comparison_tools_2.pcm");
     File pcmFileB = new File("pcms/List_of_Nvidia_graphics_processing_units_29.pcm");
@@ -46,7 +47,7 @@ public class ComparePcmTest {
     @Test
     public void compareProduit() throws Exception {
         try {
-            pcmA = loader.load(pcmFileE).get(0).getPcm();
+            pcmA = loader.load(pcmFileD).get(0).getPcm();
             pcmB = loader.load(pcmFileE).get(0).getPcm();
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,5 +56,7 @@ public class ComparePcmTest {
         comparePcm.compareProduit(pcmA,pcmB);
 
     }
+
+
 
 }
