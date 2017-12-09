@@ -64,15 +64,7 @@ public class ComparePcm {
         }
 
         // Affichage des resultat
-        if (Aissmall) {
-            for (int i = 0; i < featuresPCMB.size() + 30; i++) {
-                System.out.print("__");
-            }
-        } else {
-            for (int i = 0; i < featuresPCMA.size() + 30; i++) {
-                System.out.print("__");
-            }
-        }
+        lolAffiche(Aissmall,featuresPCMA.size() + 30,featuresPCMB.size() + 30) ;
         System.out.println("");
 
         System.out.print("| Features of PCM A : Sieze A = " + featuresPCMA.size() + " => ");
@@ -86,15 +78,7 @@ public class ComparePcm {
         System.out.println("");
         System.out.println(" Count = " + ei);
         ei = 0;
-        if (Aissmall) {
-            for (int i = 0; i < featuresPCMB.size() + 30; i++) {
-                System.out.print("__");
-            }
-        } else {
-            for (int i = 0; i < featuresPCMA.size() + 30; i++) {
-                System.out.print("__");
-            }
-        }
+        lolAffiche(Aissmall,featuresPCMA.size() + 30,featuresPCMB.size() + 30) ;
         System.out.println("");
         System.out.print("| Features of PCM B : Sieze B = " + featuresPCMB.size() + " => ");
         for (Feature feature : featuresPCMB.keySet()) {
@@ -106,15 +90,7 @@ public class ComparePcm {
         System.out.println("");
         System.out.println(" Count = " + ei);
 
-        if (Aissmall) {
-            for (int i = 0; i < featuresPCMB.size() + 30; i++) {
-                System.out.print("__");
-            }
-        } else {
-            for (int i = 0; i < featuresPCMA.size() + 30; i++) {
-                System.out.print("__");
-            }
-        }
+        lolAffiche(Aissmall,featuresPCMA.size() + 30,featuresPCMB.size() + 30) ;
         System.out.println("");
         if (Aissmall) {
             System.out.print("| Features of PCM A & PCM B (A small than B): => ");
@@ -133,17 +109,22 @@ public class ComparePcm {
             System.out.println(ConsoleColors.BLUE + " Count = " + featuresPCMAB.size() + " Ces desux PCM n'ont  aucune Correspondence of Feature " + ConsoleColors.RESET);
         }
         System.out.println("");
-        if (Aissmall) {
-            for (int i = 0; i < featuresPCMAB.size() + 30; i++) {
+        lolAffiche(Aissmall,featuresPCMA.size() + 30,featuresPCMB.size() + 30) ;
+
+
+
+    }
+
+    public void lolAffiche(Boolean small,int e,int j){
+        if (small) {
+            for (int i = 0; i < e + 30; i++) {
                 System.out.print("__");
             }
         } else {
-            for (int i = 0; i < featuresPCMA.size() + 30; i++) {
+            for (int i = 0; i < j + 30; i++) {
                 System.out.print("__");
             }
         }
-
-
     }
 
     public void compareProduit(PCM pcmA, PCM pcmB) {
