@@ -1,14 +1,4 @@
 package org.opencompare;
-/**
-* Java program to check if input number
-* is a valid number. Source code taken from geeksforgeeks.org 
-*
-* @author  geeksforgeeks.org
-* @version 1.0
-* @since   2017-10-04 
-*/
-import java.io.*;
-import java.util.*;
 
 class StringChecker
 {
@@ -49,7 +39,7 @@ class StringChecker
          {
              // checks if the char 'e' has already
              // occurred before '.' If yes, return 0.
-             if (flagDotOrE == true)
+             if (flagDotOrE)
                  return false;
 
              // If '.' is the last character.

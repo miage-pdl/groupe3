@@ -158,7 +158,7 @@ public class ComparePcm {
                         i2++;
                         // if ( compareTwoProduc(i1,i2,product,product1,localfeaturesPCMAB.keySet())){
                         if (compareTwoProducByTypeOfCell(i1, i2, product, product1, localfeaturesPCMAB.keySet())) {
-                            break findbreak;
+                            break;
                         }
                     }
                     i2 = 0;
@@ -172,7 +172,7 @@ public class ComparePcm {
                         i2++;
                         //    if ( compareTwoProduc(i1, i2, product,product1,localfeaturesPCMAB.keySet())){
                         if (compareTwoProducByTypeOfCell(i1, i2, product, product1, localfeaturesPCMAB.keySet())) {
-                            break findbreak;
+                            break;
                         }
                     }
                     i2 = 0;

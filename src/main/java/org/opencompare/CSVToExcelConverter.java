@@ -3,7 +3,6 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -20,10 +19,9 @@ public class CSVToExcelConverter {
 		
         ArrayList arList=null;
         ArrayList al=null;
-        String fName = outputFile;
         String thisLine;
         int count=0;
-        FileInputStream fis = new FileInputStream(fName);
+        FileInputStream fis = new FileInputStream(outputFile);
         DataInputStream myInput = new DataInputStream(fis);
         int i=0;
         arList = new ArrayList();
@@ -31,9 +29,8 @@ public class CSVToExcelConverter {
         {
             al = new ArrayList();
             String strar[] = thisLine.split("...,");
-            for(int j=0;j<strar.length;j++)
-            {
-                al.add(strar[j]);
+            for (String aStrar : strar) {
+                al.add(aStrar);
             }
             arList.add(al);
             i++;
@@ -46,7 +43,7 @@ public class CSVToExcelConverter {
             for(int k=0;k<arList.size();k++)
             {
                 ArrayList ardata = (ArrayList)arList.get(k);
-                HSSFRow row = sheet.createRow((short) 0+k);
+                HSSFRow row = sheet.createRow(k);
                 for(int p=0;p<ardata.size();p++)
                 {
                     HSSFCell cell = row.createCell((short) p);

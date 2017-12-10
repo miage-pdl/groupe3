@@ -26,10 +26,10 @@ public class PredominantF {
     int countPcm = 0;
 
 
-    public void prédominantF() throws IOException {
+    public void predominantF() throws IOException {
 
 
-        ArrayList<File> files = new ArrayList<File>();
+        ArrayList<File> files = new ArrayList<>();
 
         // Define a file representing a PCM to load
 
@@ -57,9 +57,6 @@ public class PredominantF {
 
                 // Browse the cells of the PCM
 
-                /**
-                 * creation de doubler
-                 */
                 countPcm++;
                 System.out.println(ConsoleColors.CYAN_BACKGROUND + " <- " + countPcm + " -> New pcm " + pcm.getConcreteFeatures().size() + ConsoleColors.RESET);
 
@@ -116,10 +113,10 @@ public class PredominantF {
                 Collection<HashMap<String, Integer>> typss =  hashMapHashMap.values();
 
 
-                for (Iterator<HashMap<String, Integer>> it = typss.iterator(); it.hasNext(); ) {
-                  //  HashMap<String, Integer> types = it.next();
-                    String typeles = String.valueOf(it.next());
-                    printA(" - " + typeles + " - " );
+                for (HashMap<String, Integer> typs : typss) {
+                    //  HashMap<String, Integer> types = it.next();
+                    String typeles = String.valueOf(typs);
+                    printA(" - " + typeles + " - ");
                 /*   for (int i = 0 ; i < it.next().keySet().size() ; i++ ){
               //         printA(" - " + it.next().keySet().spliterator() + " - " );
 
@@ -135,11 +132,7 @@ public class PredominantF {
     }
 
 
-    private static FilenameFilter pcmlFileFilter = new FilenameFilter() {
-        public boolean accept(File dir, String name) {
-            return name.endsWith(".pcm");
-        }
-    };
+    private static FilenameFilter pcmlFileFilter = (dir, name) -> name.endsWith(".pcm");
 
     /**
      * cree de paire par ligne

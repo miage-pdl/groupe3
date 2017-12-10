@@ -27,7 +27,7 @@ import org.opencompare.api.java.io.PCMLoader;
 public class PcmInspector {
 
     // Create Map of Frequencies
-    public Map<String, HashMap<String, Integer>> mapOfFrequencies = new HashMap<String, HashMap<String, Integer>>();
+    public Map<String, HashMap<String, Integer>> mapOfFrequencies = new HashMap<>();
     // HashMap to store the processed information from the PCM file
     public HashMap<String, Integer> frequenciesCells = new HashMap<>();
     public HashMap<String, Integer> frequenciesFeatures = new HashMap<>();

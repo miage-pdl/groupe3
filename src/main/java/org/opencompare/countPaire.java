@@ -26,7 +26,7 @@ public class countPaire {
 
         binomeMaster.put("mypaire", binome);
 
-        ArrayList<File> files = new ArrayList<File>();
+        ArrayList<File> files = new ArrayList<>();
 
         // Define a file representing a PCM to load
 
@@ -54,9 +54,6 @@ public class countPaire {
 
                 // Browse the cells of the PCM
 
-                /**
-                 * creation de doubler
-                 */
                 countPcm++ ;
                 System.out.println(ConsoleColors.CYAN_BACKGROUND +" <- "+countPcm+" -> New pcm "+ pcm.getConcreteFeatures().size() +ConsoleColors.RESET);
                 for (Product product : pcm.getProducts()) {
@@ -99,11 +96,7 @@ public class countPaire {
     }
 
 
-    private static FilenameFilter pcmlFileFilter = new FilenameFilter() {
-        public boolean accept(File dir, String name) {
-            return name.endsWith(".pcm");
-        }
-    };
+    private static FilenameFilter pcmlFileFilter = (dir, name) -> name.endsWith(".pcm");
 
     /**
      * cree de paire par ligne

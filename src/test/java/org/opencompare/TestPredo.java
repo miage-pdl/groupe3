@@ -12,7 +12,7 @@ public class TestPredo {
     public void test() {
         PredominantF predominantF = new PredominantF() ;
         try {
-            predominantF.prédominantF();
+            predominantF.predominantF();
         } catch (IOException e) {
             e.printStackTrace();
         }

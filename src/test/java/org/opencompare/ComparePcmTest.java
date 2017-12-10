@@ -1,7 +1,6 @@
 package org.opencompare;
 
 import org.junit.Test;
-import org.junit.Test.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +8,6 @@ import java.io.IOException;
 import org.opencompare.api.java.*;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
-
-import static org.junit.Assert.*;
 
 public class ComparePcmTest {
 
