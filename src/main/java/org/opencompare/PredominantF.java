@@ -5,9 +5,8 @@ import org.opencompare.api.java.*;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Time;
 import java.util.*;
 
 public class PredominantF {
@@ -102,25 +101,39 @@ public class PredominantF {
         Affiche();
     }
 
-    private void Affiche() {
+    private void Affiche() throws IOException {
+
+        System.out.println("Resultat Similarite: " );
+        File fout = new File( "typePredoFeatures.csv");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(fout);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+
 
         for (HashMap<String, HashMap<String, Integer>> hashMapHashMap : allPredo) {
 
             String featuretab = hashMapHashMap.keySet().toString();
-            printA(featuretab);
+        //   printA(featuretab.substring(1,featuretab.length()-1));
             if (null != hashMapHashMap.values() ){
-                printA(",=>  " );
+
                 Collection<HashMap<String, Integer>> typss =  hashMapHashMap.values();
-
-
                 for (HashMap<String, Integer> typs : typss) {
-                    //  HashMap<String, Integer> types = it.next();
-                    String typeles = String.valueOf(typs);
-                    printA(" - " + typeles + " - ");
-                /*   for (int i = 0 ; i < it.next().keySet().size() ; i++ ){
-              //         printA(" - " + it.next().keySet().spliterator() + " - " );
 
-                   }*/
+                    String line = ""+ featuretab.substring(1,featuretab.length()-1) ;
+
+                    for (String s:typs.keySet()){
+                      line += " , "+s+" , "+ typs.get(s);
+                        //printA(", "+s+" , "+typs.get(s));
+                    }
+                    bw.write(line);
+                    bw.newLine();
+
+
                 }
                 type.clear();
             }
@@ -129,6 +142,7 @@ public class PredominantF {
 
 
         }
+        bw.close();
     }
 
 
