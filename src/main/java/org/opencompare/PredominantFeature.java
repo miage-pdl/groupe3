@@ -6,10 +6,9 @@ import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
 import java.io.*;
-import java.sql.Time;
 import java.util.*;
 
-public class PredominantF {
+public class PredominantFeature {
 
 
 
@@ -25,17 +24,17 @@ public class PredominantF {
     int countPcm = 0;
 
 
-    public void predominantF() throws IOException {
+    public void  getPredonimantFeatures(String directory) throws IOException {
 
 
-        ArrayList<File> files = new ArrayList<>();
+        List<File> files = new ArrayList<>();
 
         // Define a file representing a PCM to load
 
-        File repertoire = new File("pcms/");
+        File repertoire = new File(directory);
 
         // Collections.addAll(files, repertoire.listFiles()  ) ;
-        Collections.addAll(files, repertoire.listFiles(pcmlFileFilter));
+        files = (List<File>) PcmUtils.getPCMFiles(repertoire);
 
 
         // Create a loader that can handle the file format
@@ -78,11 +77,6 @@ public class PredominantF {
                         }
 
                     }
-                for (String types : type.keySet()) {
-               // printA(types);
-              //  printA(type.get(types).toString());
-           //     printA(", "+types);
-            }
 
                     predo.put(feature.getName(), (HashMap<String, Integer>) type.clone());
 
@@ -98,10 +92,10 @@ public class PredominantF {
             }
         }
         type.clear();
-        Affiche();
+        affiche();
     }
 
-    private void Affiche() throws IOException {
+    private void affiche() throws IOException {
 
         System.out.println("Resultat Similarite: " );
         File fout = new File( "typePredoFeatures.csv");
@@ -144,10 +138,6 @@ public class PredominantF {
         }
         bw.close();
     }
-
-
-    private static FilenameFilter pcmlFileFilter = (dir, name) -> name.endsWith(".pcm");
-
     /**
      * cree de paire par ligne
      *
@@ -161,9 +151,6 @@ public class PredominantF {
 
     }
 
-    private void printA(String s) {
-        System.out.print("" + s + " ");
-    }
 }
 
 

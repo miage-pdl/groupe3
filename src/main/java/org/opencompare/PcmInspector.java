@@ -52,17 +52,16 @@ public class PcmInspector {
      * @throws IOException
      */
 
-    public void init() throws IOException {
+    public void intialiceMaps() throws IOException {
         mapOfFrequencies.put("frequenciesCells", frequenciesCells);
         mapOfFrequencies.put("frequenciesFeatures", frequenciesFeatures);
         mapOfFrequencies.put("frequenciesProducts", frequenciesProducts);
         mapOfFrequencies.put("frequenciesTypes", frequenciesTypes);
-        exploreFrequencies(mapOfFrequencies);
 
     }
 
     public void calculateStatistiques(String path) throws IOException {
-        init();
+        intialiceMaps();
         int verticalSize = 0;
         int horizontalSize = 0;
         File directory = new File(path);
@@ -207,18 +206,20 @@ public class PcmInspector {
         return verticalSize;
     }
 
-    public void calculateMatrixSize(PCM pcm, int verticalSize, int horizontalSize) {
-        matrixSize.computeIfAbsent(pcm.getName(), val -> verticalSize + "X" + horizontalSize);
+    public void calculateMatrixSize(PCM pcm,  int horizontalSize,int verticalSize) {
+        matrixSize.computeIfAbsent(pcm.getName(), val -> (verticalSize+1) + "X" + horizontalSize);
     }
 
 
     public static void main(String[] args) {
         PcmInspector pcmInspector = new PcmInspector();
+        PredominantFeature predominantFeature = new PredominantFeature();
         System.out.println("Insérez la route du dossier à traiter");
         Scanner scanner = new Scanner(System.in);
         String path = scanner.next();
         try {
             pcmInspector.calculateStatistiques(path);
+            predominantFeature.getPredonimantFeatures(path);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
