@@ -9,3 +9,5 @@
 .project
 *.zip
 *.pcm
+*.idea
+.idea
