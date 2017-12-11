@@ -17,7 +17,7 @@ public class PcmUtils {
         return FileUtils.listFiles(directory, extensions, true);
     }
 
-    public static <K, V> void createFrequenciesFile(HashMap<K, V> frequency, String frequencyName) throws IOException {
+    public static <K, V> void createFile(HashMap<K, V> frequency, String frequencyName) throws IOException {
 
         System.out.println("Writing frequence: " + frequencyName);
         File fout2 = new File(frequencyName + ".csv");

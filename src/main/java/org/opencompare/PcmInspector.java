@@ -102,7 +102,7 @@ public class PcmInspector {
 
         // Explore all the frequencies
         exploreFrequencies(mapOfFrequencies);
-        PcmUtils.createFrequenciesFile(matrixSize, MATRIX_SIZE);
+        PcmUtils.createFile(matrixSize, MATRIX_SIZE);
     }
 
     /**
@@ -114,10 +114,10 @@ public class PcmInspector {
      */
     public void exploreFrequencies(Map<String, HashMap<String, Integer>> mapOfFrequencies) throws IOException {
 
-        PcmUtils.createFrequenciesFile(mapOfFrequencies.get("frequenciesCells"), FREQUENCY_CELLS);
-        PcmUtils.createFrequenciesFile(mapOfFrequencies.get("frequenciesFeatures"), FREQUENCY_FEATURES);
-        PcmUtils.createFrequenciesFile(mapOfFrequencies.get("frequenciesProducts"), FREQUENCY_PRODUCTS);
-        PcmUtils.createFrequenciesFile(mapOfFrequencies.get("frequenciesTypes"), FREQUENCY_TYPES);
+        PcmUtils.createFile(mapOfFrequencies.get("frequenciesCells"), FREQUENCY_CELLS);
+        PcmUtils.createFile(mapOfFrequencies.get("frequenciesFeatures"), FREQUENCY_FEATURES);
+        PcmUtils.createFile(mapOfFrequencies.get("frequenciesProducts"), FREQUENCY_PRODUCTS);
+        PcmUtils.createFile(mapOfFrequencies.get("frequenciesTypes"), FREQUENCY_TYPES);
 
     }
 
@@ -227,12 +227,16 @@ public class PcmInspector {
     public static void main(String[] args) {
     	
         PcmInspector pcmInspector = new PcmInspector();
+        PredominantFeature predominantFeature = new PredominantFeature();
+        CountPairs countPairs = new CountPairs();
         System.out.println("Insérez la route du dossier à traiter");
         Scanner scanner = new Scanner(System.in);
         String path = scanner.next();
         try {
             pcmInspector.calculateStatistiques(path);
-        } catch (IOException e) {
+            predominantFeature.getPredonimantFeatures(path);
+            countPairs.getCountOfPaireValues(path);
+                 } catch (IOException e) {
             e.printStackTrace();
         }
         

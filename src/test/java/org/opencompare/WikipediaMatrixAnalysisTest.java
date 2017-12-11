@@ -39,7 +39,7 @@ public class WikipediaMatrixAnalysisTest {
 				List<PCMContainer> pcmContainers = loader.load(pcmFile);
 				for (PCMContainer pcmContainer : pcmContainers) {
 					PCM pcm = pcmContainer.getPcm();
-					pcmInspectorTest.getFeatureFrequeancies(pcm);
+					pcmInspectorTest.getFeatureFrequencies(pcm);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

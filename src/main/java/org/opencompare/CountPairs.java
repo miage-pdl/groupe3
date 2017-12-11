@@ -58,7 +58,6 @@ public class CountPairs {
                     for (int i = 0; i < pcm.getConcreteFeatures().size() -1 ; i++) {
 
                         for (int j = i + 1; j < pcm.getConcreteFeatures().size(); j++) {
-
                             generalCountCellsBinome(
                                     "mypaire",(
                                             " "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent()
@@ -73,34 +72,16 @@ public class CountPairs {
 
             }
         }
-        System.out.println("Resultat Similarite: " );
-        File fout = new File( "CounPaire.csv");
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(fout);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-
         int i = 0;
         for (String b : binomeMaster.get("mypaire").keySet()) {
 
-            String line  =  b + " , " + binome.get(b) ;
-            bw.write(line);
-            bw.newLine();
             System.out.println("<- "+ i +" -> "+ b.replaceAll("\n","") + " --> Count = " +binome.get(b)  );
             i++;
         }
-
+        PcmUtils.createFile(binomeMaster,"CountPairs");
         }
-        bw.close();
 
 
-    }
-
-
-    private static FilenameFilter pcmlFileFilter = (dir, name) -> name.endsWith(".pcm");
 
     /**
      * cree de paire par ligne
