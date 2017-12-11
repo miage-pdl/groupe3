@@ -44,7 +44,7 @@ public class ComparePcmTest {
     @Test
     public void compareProduit() throws Exception {
         try {
-            pcmA = loader.load(pcmFileD).get(0).getPcm();
+            pcmA = loader.load(pcmFileE).get(0).getPcm();
             pcmB = loader.load(pcmFileE).get(0).getPcm();
         } catch (IOException e) {
             e.printStackTrace();
