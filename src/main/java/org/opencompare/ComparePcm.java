@@ -48,9 +48,11 @@ public class ComparePcm {
         int i = 1 ;
         for (File pcmFile : files) {
             for (int ipcm = i ; ipcm < files.size() ; ipcm++ ){
+                System.out.println("i =" + i+ " - j = "+ipcm );
                 PCM pcmA = loader.load(pcmFile).get(0).getPcm();
                 PCM pcmB = loader.load(files.get(ipcm)).get(0).getPcm();
                 compareProduit(pcmA,pcmB);
+                compare.clear();
             }
             i++;
         }

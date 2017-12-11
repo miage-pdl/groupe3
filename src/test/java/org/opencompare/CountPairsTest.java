@@ -6,7 +6,7 @@ public class CountPairsTest {
     @Test
     public void testCountPaire() throws Exception {
         CountPairs countPairs = new CountPairs();
-        countPairs.getCountOfPaireValues("");
+        countPairs.getCountOfPaireValues("pcms/");
     }
 
     @Test

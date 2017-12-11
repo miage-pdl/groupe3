@@ -30,8 +30,10 @@ public class CountPairs {
 
         File repertoire = new File(directory);
 
-        // Collections.addAll(files, repertoire.listFiles()  ) ;
-        files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+        Collections.addAll(files, repertoire.listFiles()  ) ;
+       // files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+
+        System.out.println("Sixe = " +files.size());
 
 
         // Create a loader that can handle the file format
@@ -78,7 +80,7 @@ public class CountPairs {
             System.out.println("<- "+ i +" -> "+ b.replaceAll("\n","") + " --> Count = " +binome.get(b)  );
             i++;
         }
-        PcmUtils.createFile(binomeMaster,"CountPairs");
+        PcmUtils.createFile(binome,"CountPairs");
         }
 
 
