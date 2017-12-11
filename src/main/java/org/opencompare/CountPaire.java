@@ -7,9 +7,7 @@ import org.opencompare.api.java.Product;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class CountPaire {
@@ -57,19 +55,14 @@ public class CountPaire {
                 countPcm++ ;
                 System.out.println(ConsoleColors.CYAN_BACKGROUND +" <- "+countPcm+" -> New pcm "+ pcm.getConcreteFeatures().size() +ConsoleColors.RESET);
                 for (Product product : pcm.getProducts()) {
-                    //   System.out.println(ConsoleColors.RED +" size =>  "+ pcm.getConcreteFeatures().size() +ConsoleColors.RESET);
                     for (int i = 0; i < pcm.getConcreteFeatures().size() -1 ; i++) {
-                        //     System.out.println(ConsoleColors.BLUE +" poition =  "+ i +ConsoleColors.RESET);
+
                         for (int j = i + 1; j < pcm.getConcreteFeatures().size(); j++) {
-                            System.out.print(" <-- " + product.findCell(pcm.getConcreteFeatures().get(i)).getContent()) ;
-                            System.out.print(" <> " + product.findCell(pcm.getConcreteFeatures().get(j)).getContent()) ;
-                            System.out.print(" --> ") ;
-                            System.out.println();
 
                             generalCountCellsBinome(
                                     "mypaire",(
-                                            "<= R = "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent()
-                                                    +" -<>- L = "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent()+ " =>")
+                                            " "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent()
+                                                    +" , "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent())
                             );
 
                         }
@@ -80,19 +73,24 @@ public class CountPaire {
 
             }
         }
-      /*  int i = 0;
-        for (String features : mapOfFrequencies.get("frequenciesFeatures").keySet()) {
+        System.out.println("Resultat Similarite: " );
+        File fout = new File( "CounPaire.csv");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(fout);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
-            System.out.println("<> " + i + " - " + features + " ===> " + frequenciesFeatures.get(features));
-            i++;
-        }*/
-        int i = 0;
         for (String b : binomeMaster.get("mypaire").keySet()) {
 
-            System.out.println("<- "+ i +" -> "+ b + " --> Count = " +binome.get(b)  );
-            i++;
-        }
+            String line  =  b + " , " + binome.get(b) ;
+            bw.write(line);
+            bw.newLine();
 
+        }
+        bw.close();
     }
 
 
