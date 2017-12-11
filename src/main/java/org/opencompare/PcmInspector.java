@@ -54,7 +54,7 @@ public class PcmInspector {
      * @throws IOException
      */
 
-    public void intialiceMaps() throws IOException {
+    public void intializeMaps() throws IOException {
         mapOfFrequencies.put("frequenciesCells", frequenciesCells);
         mapOfFrequencies.put("frequenciesFeatures", frequenciesFeatures);
         mapOfFrequencies.put("frequenciesProducts", frequenciesProducts);
@@ -62,8 +62,8 @@ public class PcmInspector {
 
     }
 
-    public void calculateStatistiques(String path) throws IOException {
-        intialiceMaps();
+    public void calculateStatistics(String path) throws IOException {
+        intializeMaps();
         int verticalSize = 0;
         int horizontalSize = 0;
         File directory = new File(path);
@@ -256,7 +256,7 @@ public class PcmInspector {
             if(!"".equals(pathUserInput.trim())){
                 try{
                     defaultPath = pathUserInput;
-                }catch(NumberFormatException nfe){
+                }catch(Exception e){
                 		defaultPath = "pcms";
                 }
             }
@@ -266,10 +266,10 @@ public class PcmInspector {
         System.out.println("Dossier à processer: " + defaultPath);        
         
         try {
-            pcmInspector.calculateStatistiques(defaultPath);
+            pcmInspector.calculateStatistics(defaultPath);
             predominantFeature.getPredonimantFeatures(defaultPath);
             countPairs.getCountOfPaireValues(defaultPath);
-                 } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         
