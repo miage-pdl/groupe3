@@ -55,10 +55,10 @@ public class CountPairs {
                 countPcm++ ;
                 System.out.println(ConsoleColors.CYAN_BACKGROUND +" <- "+countPcm+" -> New pcm "+ pcm.getConcreteFeatures().size() +ConsoleColors.RESET);
                 for (Product product : pcm.getProducts()) {
-                    //   System.out.println(ConsoleColors.RED +" size =>  "+ pcm.getConcreteFeatures().size() +ConsoleColors.RESET);
                     for (int i = 0; i < pcm.getConcreteFeatures().size() -1 ; i++) {
-                        //     System.out.println(ConsoleColors.BLUE +" poition =  "+ i +ConsoleColors.RESET);
+
                         for (int j = i + 1; j < pcm.getConcreteFeatures().size(); j++) {
+
                             generalCountCellsBinome(
                                     "mypaire",(
                                             " "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent()
@@ -73,15 +73,8 @@ public class CountPairs {
 
             }
         }
-        int i = 0;
-        for (String b : binomeMaster.get("mypaire").keySet()) {
-
-            System.out.println("<- "+ i +" -> "+ b.replaceAll("\n","") + " --> Count = " +binome.get(b)  );
-            i++;
-        }
-
-        System.out.println("Resultat Count Paire : " );
-        File fout = new File( "CountPairs.csv");
+        System.out.println("Resultat Similarite: " );
+        File fout = new File( "CounPaire.csv");
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(fout);
@@ -90,13 +83,19 @@ public class CountPairs {
         }
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
+        int i = 0;
         for (String b : binomeMaster.get("mypaire").keySet()) {
-            String line = "" +b.replaceAll("\n","") + " , " +binome.get(b)  ;
+
+            String line  =  b + " , " + binome.get(b) ;
             bw.write(line);
             bw.newLine();
+            System.out.println("<- "+ i +" -> "+ b.replaceAll("\n","") + " --> Count = " +binome.get(b)  );
+            i++;
         }
 
+        }
         bw.close();
+
 
     }
 

@@ -91,7 +91,7 @@ public class PcmInspector {
                 // Get the PCM
                 PCM pcm = pcmContainer.getPcm();
 
-                horizontalSize = getFeatureFrequeancies(pcm);
+                horizontalSize = getFeatureFrequencies(pcm);
 
                 // Browse the cells of the PCM
                 verticalSize = getCellandProductFrequencies(pcm);
@@ -134,20 +134,23 @@ public class PcmInspector {
 
     }
 
-    public int getFeatureFrequeancies(PCM pcm) {
+    public int getFeatureFrequencies(PCM pcm) {
+    	
         int horizontalSize = pcm.getConcreteFeatures().size();
         // Calculate frequencies by features
         for (Feature feature : pcm.getConcreteFeatures()) {
             if (feature.getName() != null) {
-                generalCountCells("frequenciesFeatures", feature.getName());
+                generalCountCells("frequenciesFeatures", '"' + feature.getName() + '"');
             } else {
                 generalCountCells("frequenciesFeatures", "null");
             }
         }
         return horizontalSize;
+        
     }
 
     public void getCellFrequeancies(PCM pcm, Product product) {
+    	
         for (Feature feature : pcm.getConcreteFeatures()) {
 
             // Find the cell corresponding to the current feature and product
@@ -156,10 +159,10 @@ public class PcmInspector {
             String content;
             try {
                 // Get information contained in the cell
-                content = cell.getContent().replace("\n", "").replace("\r", "").replace(",", " ");
+                content = cell.getContent();
                 if (content != null) {
                     // Calculate frequencies by cells0
-                    generalCountCells("frequenciesCells", content);
+                    generalCountCells("frequenciesCells", '"' + content + '"');
                 }
             } catch (Exception e) {
                 // System.out.println("Error reading cell content");
@@ -170,30 +173,37 @@ public class PcmInspector {
     }
 
     public void getCelltypeFrequencies(Cell cell) {
+    	
         try {
             // Calculate frequencies by type
             Value vl = cell.getInterpretation();
             if (vl != null) {
-                generalCountCells("frequenciesTypes", vl.getClass().getName().replace(PCM_OBJECT_NAME, ""));
+            		String typeName = vl.getClass().getName().replace(PCM_OBJECT_NAME, "");
+                generalCountCells("frequenciesTypes", '"' +  typeName + '"');
             }
         } catch (Exception e) {
             System.out.println(e);
         }
+        
     }
 
     public void getFrequenciesByProduct(Product product) {
+    	
         try {
             if (product.getKeyContent() != null) {
-                generalCountCells("frequenciesProducts", product.getKeyContent());
+            		
+                generalCountCells("frequenciesProducts", '"' + product.getKeyContent() + '"');
             } else {
                 generalCountCells("frequenciesProducts", "null");
             }
         } catch (Exception e) {
             // System.out.println("Feature error");
         }
+        
     }
 
     public int getCellandProductFrequencies(PCM pcm) {
+    	
         int verticalSize = pcm.getProducts().size();
         for (Product product : pcm.getProducts()) {
 
@@ -202,27 +212,30 @@ public class PcmInspector {
 
             getCellFrequeancies(pcm, product);
         }
+        
         return verticalSize;
+        
     }
 
-    public void calculateMatrixSize(PCM pcm,  int horizontalSize,int verticalSize) {
-        matrixSize.computeIfAbsent(pcm.getName(), val -> (verticalSize+1) + "X" + horizontalSize);
+    public void calculateMatrixSize(PCM pcm, int verticalSize, int horizontalSize) {
+    	
+        matrixSize.computeIfAbsent(pcm.getName(), val -> verticalSize + "X" + horizontalSize);
+        
     }
 
 
     public static void main(String[] args) {
+    	
         PcmInspector pcmInspector = new PcmInspector();
-        PredominantFeature predominantFeature = new PredominantFeature();
         System.out.println("Insérez la route du dossier à traiter");
         Scanner scanner = new Scanner(System.in);
         String path = scanner.next();
         try {
             pcmInspector.calculateStatistiques(path);
-            predominantFeature.getPredonimantFeatures(path);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
     }
 
 }
