@@ -33,7 +33,7 @@ public class WikipediaMatrixAnalysisTest {
 		for (File file:files) {
 			File pcmFile = null;
 			try {
-				pcmInspectorTest.intialiceMaps();
+				pcmInspectorTest.intializeMaps();
 				pcmFile = new File(file.getCanonicalPath());
 				PCMLoader loader = new KMFJSONLoader();
 				List<PCMContainer> pcmContainers = loader.load(pcmFile);
