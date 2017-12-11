@@ -52,17 +52,16 @@ public class PcmInspector {
      * @throws IOException
      */
 
-    public void init() throws IOException {
+    public void intialiceMaps() throws IOException {
         mapOfFrequencies.put("frequenciesCells", frequenciesCells);
         mapOfFrequencies.put("frequenciesFeatures", frequenciesFeatures);
         mapOfFrequencies.put("frequenciesProducts", frequenciesProducts);
         mapOfFrequencies.put("frequenciesTypes", frequenciesTypes);
-        exploreFrequencies(mapOfFrequencies);
 
     }
 
     public void calculateStatistiques(String path) throws IOException {
-        init();
+        intialiceMaps();
         int verticalSize = 0;
         int horizontalSize = 0;
         File directory = new File(path);

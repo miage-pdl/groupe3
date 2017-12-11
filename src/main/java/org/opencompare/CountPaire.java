@@ -12,7 +12,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.*;
 
-public class countPaire {
+public class CountPaire {
 
     //hahMap for count binome
     HashMap<String, HashMap<String, Integer>> binomeMaster = new HashMap<>();

@@ -2,7 +2,7 @@ package org.opencompare;
 
 import org.junit.Test;
 
-public class countPaireTest {
+public class CountPaireTest {
     @Test
     public void testCountPaire() throws Exception {
         CountPaire countPaire = new CountPaire();
