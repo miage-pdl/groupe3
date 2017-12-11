@@ -74,7 +74,7 @@ public class PcmInspector {
             PCMLoader loader = new KMFJSONLoader();
 
             // Create a string checker to verify if a given string is a number
-            // StringChecker checker = new StringChecker();
+
             // Load the file
             // A loader may return multiple PCM containers depending on the input format
             // A PCM container encapsulates a PCM and its associated metadata
