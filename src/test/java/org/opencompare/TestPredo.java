@@ -10,9 +10,9 @@ public class TestPredo {
 
     @Test
     public void test() {
-        PredominantF predominantF = new PredominantF() ;
+        PredominantFeature predominantFeature = new PredominantFeature() ;
         try {
-            predominantF.predominantF();
+            predominantFeature.getPredonimantFeatures("");
         } catch (IOException e) {
             e.printStackTrace();
         }
