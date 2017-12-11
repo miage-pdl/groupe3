@@ -1,11 +1,11 @@
 package org.opencompare;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+
 import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.opencompare.api.java.PCM;
 import org.opencompare.api.java.PCMContainer;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
@@ -19,17 +19,16 @@ import java.util.List;
 public class WikipediaMatrixAnalysisTest {
 	List<File> files;
 	PcmInspector pcmInspectorTest;
-	@BeforeAll
+	@BeforeEach
 	public void chargePcmToTest(){
 
-		files = (List<File>) PcmUtils.getPCMFiles(new File("/pcmTest/"));
+		files = (List<File>) PcmUtils.getPCMFiles(new File("pcmTest"));
 
 	}
 
 	@Test
-	public void testgetFeatureFrequeancies() {
+	public void testGetFeatureFrequeancies() {
 		pcmInspectorTest = new PcmInspector();
-		files = (List<File>) PcmUtils.getPCMFiles(new File("pcmTest"));
 		for (File file:files) {
 			File pcmFile = null;
 			try {
@@ -48,14 +47,16 @@ public class WikipediaMatrixAnalysisTest {
 
 		}
 		HashMap<String, Integer> frequenciesFeatures = pcmInspectorTest.mapOfFrequencies.get("frequenciesFeatures");
-		assertEquals(1,frequenciesFeatures.get("dvr").intValue());
+		int result = frequenciesFeatures.get("\"dvr\"").intValue();
+		assertEquals(1,result);
 	}
 	@Test
-	public void testgetProoductsAndCellFrequeancies() {
+	public void testGetProoductsAndCellFrequeancies() {
 		pcmInspectorTest = new PcmInspector();
 		for (File file:files) {
 			File pcmFile = null;
 			try {
+                pcmInspectorTest.intializeMaps();
 				pcmFile = new File(file.getCanonicalPath());
 				PCMLoader loader = new KMFJSONLoader();
 				List<PCMContainer> pcmContainers = loader.load(pcmFile);
@@ -69,7 +70,35 @@ public class WikipediaMatrixAnalysisTest {
 
 
 		}
-		HashMap<String, Integer> frequenciesFeatures = pcmInspectorTest.frequenciesFeatures;
+        HashMap<String, Integer> frequenciesCells = pcmInspectorTest.mapOfFrequencies.get("frequenciesCells");
+		HashMap <String, Integer> frequenciesProducts = pcmInspectorTest.mapOfFrequencies.get("frequenciesProducts");
+		int resultProdut = frequenciesProducts.get("\"power management\"");
+		int resultCellsYes = frequenciesCells.get("\"yes\"");
+		assertAll("Assertion", () -> assertTrue(83 == resultCellsYes),
+                () -> assertTrue(1 ==resultProdut));
 	}
+    @Test
+	public void testGetSizeOfMatrix(){
+        pcmInspectorTest = new PcmInspector();
+        for (File file:files) {
+            File pcmFile = null;
+            try {
+                pcmInspectorTest.intializeMaps();
+                pcmFile = new File(file.getCanonicalPath());
+                PCMLoader loader = new KMFJSONLoader();
+                List<PCMContainer> pcmContainers = loader.load(pcmFile);
+                for (PCMContainer pcmContainer : pcmContainers) {
+                    PCM pcm = pcmContainer.getPcm();
+                    pcmInspectorTest.calculateMatrixSize(pcm,pcmInspectorTest.getCellandProductFrequencies(pcm),pcmInspectorTest.getFeatureFrequencies(pcm));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
+
+        }
+        HashMap<String, String> sizePcm = pcmInspectorTest.matrixSize;
+             assertEquals("16X13", sizePcm.get("Comparison_of_PVR_software_packages - Digital/Personal Video Recorder (DVR/PVR) features"));
+
+    }
 }
