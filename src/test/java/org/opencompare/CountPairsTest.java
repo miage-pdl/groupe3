@@ -1,6 +1,7 @@
 package org.opencompare;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class CountPairsTest {
     @Test

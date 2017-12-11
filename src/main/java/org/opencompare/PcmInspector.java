@@ -221,7 +221,7 @@ public class PcmInspector {
 
     public void calculateMatrixSize(PCM pcm, int verticalSize, int horizontalSize) {
     	
-        matrixSize.computeIfAbsent(pcm.getName(), val -> verticalSize + "X" + horizontalSize);
+        matrixSize.computeIfAbsent(pcm.getName(), val -> verticalSize+1 + "X" + horizontalSize);
         
     }
 
