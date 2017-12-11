@@ -26,7 +26,7 @@ public class WikipediaMatrixAnalysisTest {
 	@BeforeAll
 	public void chargePcmToTest(){
 
-		//files = (List<File>) PcmUtils.getPCMFiles(new File("pcms/"));
+
 		File repertoire = new File("pcms/");
 		Collections.addAll(files, repertoire.listFiles(pcmlFileFilter));
 
@@ -37,7 +37,8 @@ public class WikipediaMatrixAnalysisTest {
 	public void testgetFeatureFrequeancies() {
 		pcmInspectorTest = new PcmInspector();
 		System.out.println(files.size());
-		for (File file:files) {
+		File file = new File("pcms/Comparison_of_file_comparison_tools_2.pcm");
+		//for (File file:files) {
 			File pcmFile = null;
 			try {
 				pcmFile = new File(file.getCanonicalPath());
@@ -45,6 +46,8 @@ public class WikipediaMatrixAnalysisTest {
 				List<PCMContainer> pcmContainers = loader.load(pcmFile);
 				for (PCMContainer pcmContainer : pcmContainers) {
 					PCM pcm = pcmContainer.getPcm();
+					System.out.println(pcm.getName());
+					pcmInspectorTest.init();
 					pcmInspectorTest.getFeatureFrequeancies(pcm);
 				}
 			} catch (IOException e) {
@@ -52,7 +55,7 @@ public class WikipediaMatrixAnalysisTest {
 			}
 
 
-		}
+	//	}
 		HashMap<String, Integer> frequenciesFeatures = pcmInspectorTest.frequenciesFeatures;
 		//assertEquals(1,frequenciesFeatures.get("DVR").intValue());
 	}
@@ -68,6 +71,7 @@ public class WikipediaMatrixAnalysisTest {
 				List<PCMContainer> pcmContainers = loader.load(pcmFile);
 				for (PCMContainer pcmContainer : pcmContainers) {
 					PCM pcm = pcmContainer.getPcm();
+					System.out.println(pcm.getName());
 					pcmInspectorTest.getCellandProductFrequencies(pcm);
 				}
 			} catch (IOException e) {

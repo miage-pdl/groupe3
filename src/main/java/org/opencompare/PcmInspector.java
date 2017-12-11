@@ -52,12 +52,17 @@ public class PcmInspector {
      * @throws IOException
      */
 
-    public void calculateStatistiques(String path) throws IOException {
-
+    public void init() throws IOException {
         mapOfFrequencies.put("frequenciesCells", frequenciesCells);
         mapOfFrequencies.put("frequenciesFeatures", frequenciesFeatures);
         mapOfFrequencies.put("frequenciesProducts", frequenciesProducts);
         mapOfFrequencies.put("frequenciesTypes", frequenciesTypes);
+        exploreFrequencies(mapOfFrequencies);
+
+    }
+
+    public void calculateStatistiques(String path) throws IOException {
+        init();
         int verticalSize = 0;
         int horizontalSize = 0;
         File directory = new File(path);
@@ -91,7 +96,7 @@ public class PcmInspector {
 
                 // Browse the cells of the PCM
                 verticalSize = getCellandProductFrequencies(pcm);
-                calculateMatrixSize(pcm,horizontalSize,verticalSize);
+                calculateMatrixSize(pcm, horizontalSize, verticalSize);
             }
 
         }
@@ -205,7 +210,6 @@ public class PcmInspector {
     public void calculateMatrixSize(PCM pcm, int verticalSize, int horizontalSize) {
         matrixSize.computeIfAbsent(pcm.getName(), val -> verticalSize + "X" + horizontalSize);
     }
-
 
 
     public static void main(String[] args) {
