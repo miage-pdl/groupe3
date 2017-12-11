@@ -10,7 +10,11 @@ import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
 public class ComparePcmTest {
-
+    @Test
+    public void compareAll() throws Exception {
+        ComparePcm comparePcm = new ComparePcm();
+        comparePcm.compareAll("pcms/");
+    }
 
 
     //PCM

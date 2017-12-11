@@ -1,6 +1,8 @@
 package org.opencompare;
 
 import org.opencompare.api.java.*;
+import org.opencompare.api.java.impl.io.KMFJSONLoader;
+import org.opencompare.api.java.io.PCMLoader;
 
 import java.io.*;
 import java.util.*;
@@ -25,6 +27,34 @@ public class ComparePcm {
     /*
     recuperation des features
      */
+
+    public void compareAll(String directory) throws IOException {
+        List<File> files = new ArrayList<>();
+
+        // Define a file representing a PCM to load
+
+        File repertoire = new File(directory);
+
+        // Collections.addAll(files, repertoire.listFiles()  ) ;
+        files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+
+
+        // Create a loader that can handle the file format
+        PCMLoader loader = new KMFJSONLoader();
+
+        // Load the file
+        // A loader may return multiple PCM containers depending on the input format
+        // A PCM container encapsulates a PCM and its associated metadata
+        int i = 1 ;
+        for (File pcmFile : files) {
+            for (int ipcm = i ; ipcm < files.size() ; ipcm++ ){
+                PCM pcmA = loader.load(pcmFile).get(0).getPcm();
+                PCM pcmB = loader.load(files.get(ipcm)).get(0).getPcm();
+                compareProduit(pcmA,pcmB);
+            }
+            i++;
+        }
+    }
 
 
     public void compareFeature(PCM pcmA, PCM pcmB) {
