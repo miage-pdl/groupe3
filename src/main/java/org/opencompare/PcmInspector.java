@@ -1,7 +1,9 @@
 package org.opencompare;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -223,19 +225,50 @@ public class PcmInspector {
         
     }
 
+    public static boolean verifyPath(String path, boolean flag) {
+    	
+		File f = new File(path);
+		
+		if(! f.exists() && flag) {
+			System.out.println("Le dossier " + path + " n'existe pas");
+		}
+		
+		return f.exists();
+    
+    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
     	
         PcmInspector pcmInspector = new PcmInspector();
         PredominantFeature predominantFeature = new PredominantFeature();
         CountPairs countPairs = new CountPairs();
-        System.out.println("Insérez la route du dossier à traiter");
-        Scanner scanner = new Scanner(System.in);
-        String path = scanner.next();
+        
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        
+        String defaultPath = "";
+        Boolean flag = false;
+
+        while( ! verifyPath(defaultPath, flag)) {
+            
+            System.out.print("Insérez la route du dossier à traiter (Par défaut: pcms): ");
+            defaultPath = "pcms";
+            String pathUserInput = input.readLine();
+            if(!"".equals(pathUserInput.trim())){
+                try{
+                    defaultPath = pathUserInput;
+                }catch(NumberFormatException nfe){
+                		defaultPath = "pcms";
+                }
+            }
+            flag = true;
+        }
+        
+        System.out.println("Dossier à processer: " + defaultPath);        
+        
         try {
-            pcmInspector.calculateStatistiques(path);
-            predominantFeature.getPredonimantFeatures(path);
-            countPairs.getCountOfPaireValues(path);
+            pcmInspector.calculateStatistiques(defaultPath);
+            predominantFeature.getPredonimantFeatures(defaultPath);
+            countPairs.getCountOfPaireValues(defaultPath);
                  } catch (IOException e) {
             e.printStackTrace();
         }
