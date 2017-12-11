@@ -32,7 +32,6 @@ public class ComparePcm {
         featuresPCMAB.clear();
         int ei = 0;
 
-        Boolean Aissmall = true;
         for (Feature feature : pcmA.getConcreteFeatures()) {
             featuresPCMA.put(feature, 0);
         }
@@ -40,7 +39,7 @@ public class ComparePcm {
             featuresPCMB.put(feature, 0);
         }
         if (featuresPCMA.size() >= featuresPCMB.size()) {
-            Aissmall = false;
+
             comprare.put("Features A > B ",ei);
             for (Feature feature : featuresPCMB.keySet()) {
                 if (featuresPCMA.computeIfPresent(feature, (key, oldVal) -> oldVal + 1) != null) {
