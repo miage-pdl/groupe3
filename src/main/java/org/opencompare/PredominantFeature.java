@@ -33,8 +33,7 @@ public class PredominantFeature {
 
         File repertoire = new File(directory);
 
-        // Collections.addAll(files, repertoire.listFiles()  ) ;
-        files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+         files = (List<File>) PcmUtils.getPCMFiles(repertoire);
 
 
         // Create a loader that can handle the file format

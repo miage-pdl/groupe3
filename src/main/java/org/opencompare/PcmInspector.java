@@ -129,8 +129,7 @@ public class PcmInspector {
      * @param content
      */
     public void generalCountCells(String frequencyName, String content) {
-
-        mapOfFrequencies.get(frequencyName).computeIfAbsent(content.toLowerCase(), val -> 0);
+        mapOfFrequencies.get(frequencyName).computeIfAbsent(content.toLowerCase(), val -> new Integer(0));
         mapOfFrequencies.get(frequencyName).computeIfPresent(content.toLowerCase(), (key, oldVal) -> oldVal + 1);
 
     }

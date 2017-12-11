@@ -2,11 +2,11 @@ package org.opencompare;
 
 import org.junit.Test;
 
-public class CountPaireTest {
+public class CountPairsTest {
     @Test
     public void testCountPaire() throws Exception {
-        CountPaire countPaire = new CountPaire();
-        countPaire.testCountPaire();
+        CountPairs countPairs = new CountPairs();
+        countPairs.getCountOfPaireValues("");
     }
 
     @Test

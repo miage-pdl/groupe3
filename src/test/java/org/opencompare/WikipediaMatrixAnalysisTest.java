@@ -33,6 +33,7 @@ public class WikipediaMatrixAnalysisTest {
 		for (File file:files) {
 			File pcmFile = null;
 			try {
+				pcmInspectorTest.intialiceMaps();
 				pcmFile = new File(file.getCanonicalPath());
 				PCMLoader loader = new KMFJSONLoader();
 				List<PCMContainer> pcmContainers = loader.load(pcmFile);
@@ -46,8 +47,8 @@ public class WikipediaMatrixAnalysisTest {
 
 
 		}
-		HashMap<String, Integer> frequenciesFeatures = pcmInspectorTest.frequenciesFeatures;
-		assertEquals(1,frequenciesFeatures.get("DVR").intValue());
+		HashMap<String, Integer> frequenciesFeatures = pcmInspectorTest.mapOfFrequencies.get("frequenciesFeatures");
+		assertEquals(1,frequenciesFeatures.get("dvr").intValue());
 	}
 	@Test
 	public void testgetProoductsAndCellFrequeancies() {

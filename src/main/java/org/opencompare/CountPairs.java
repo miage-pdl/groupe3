@@ -7,12 +7,10 @@ import org.opencompare.api.java.Product;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
-public class CountPaire {
+public class CountPairs {
 
     //hahMap for count binome
     HashMap<String, HashMap<String, Integer>> binomeMaster = new HashMap<>();
@@ -20,20 +18,20 @@ public class CountPaire {
 
     int countPcm = 0 ;
 
-    public void testCountPaire() throws IOException {
+    public void getCountOfPaireValues(String directory) throws IOException {
 
 
 
         binomeMaster.put("mypaire", binome);
 
-        ArrayList<File> files = new ArrayList<>();
+        List<File> files = new ArrayList<>();
 
         // Define a file representing a PCM to load
 
-        File repertoire = new File("pcms/");
+        File repertoire = new File(directory);
 
         // Collections.addAll(files, repertoire.listFiles()  ) ;
-        Collections.addAll(files, repertoire.listFiles(pcmlFileFilter));
+        files = (List<File>) PcmUtils.getPCMFiles(repertoire);
 
 
         // Create a loader that can handle the file format
@@ -61,15 +59,10 @@ public class CountPaire {
                     for (int i = 0; i < pcm.getConcreteFeatures().size() -1 ; i++) {
                         //     System.out.println(ConsoleColors.BLUE +" poition =  "+ i +ConsoleColors.RESET);
                         for (int j = i + 1; j < pcm.getConcreteFeatures().size(); j++) {
-                            System.out.print(" <-- " + product.findCell(pcm.getConcreteFeatures().get(i)).getContent()) ;
-                            System.out.print(" <> " + product.findCell(pcm.getConcreteFeatures().get(j)).getContent()) ;
-                            System.out.print(" --> ") ;
-                            System.out.println();
-
                             generalCountCellsBinome(
                                     "mypaire",(
-                                            "<= R = "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent()
-                                                    +" -<>- L = "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent()+ " =>")
+                                            " "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent()
+                                                    +" , "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent())
                             );
 
                         }
@@ -80,18 +73,30 @@ public class CountPaire {
 
             }
         }
-      /*  int i = 0;
-        for (String features : mapOfFrequencies.get("frequenciesFeatures").keySet()) {
-
-            System.out.println("<> " + i + " - " + features + " ===> " + frequenciesFeatures.get(features));
-            i++;
-        }*/
         int i = 0;
         for (String b : binomeMaster.get("mypaire").keySet()) {
 
-            System.out.println("<- "+ i +" -> "+ b + " --> Count = " +binome.get(b)  );
+            System.out.println("<- "+ i +" -> "+ b.replaceAll("\n","") + " --> Count = " +binome.get(b)  );
             i++;
         }
+
+        System.out.println("Resultat Count Paire : " );
+        File fout = new File( "CountPairs.csv");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(fout);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+        for (String b : binomeMaster.get("mypaire").keySet()) {
+            String line = "" +b.replaceAll("\n","") + " , " +binome.get(b)  ;
+            bw.write(line);
+            bw.newLine();
+        }
+
+        bw.close();
 
     }
 
