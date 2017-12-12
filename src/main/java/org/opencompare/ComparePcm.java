@@ -57,6 +57,7 @@ public class ComparePcm {
             }
             i++;
         }
+        isAll = false ;
     }
 
 
