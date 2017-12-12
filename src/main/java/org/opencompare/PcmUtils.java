@@ -11,7 +11,7 @@ import java.util.HashMap;
 import org.apache.commons.io.FileUtils;
 
 public class PcmUtils {
-    private static final String[] extensions = { "pcm" };
+    private static final String[] extensions = { "pcms" };
 
     public static Collection<File> getPCMFiles(File directory) {
         return FileUtils.listFiles(directory, extensions, true);

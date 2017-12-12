@@ -22,38 +22,42 @@ public class ComparePcm {
 
     public static final String PCM_OBJECT_NAME = "org.opencompare.api.java.impl.value.";
 
-
+    private boolean isAll = false ;
 
     /*
     recuperation des features
      */
 
     public void compareAll(String directory) throws IOException {
+        isAll = true ;
         List<File> files = new ArrayList<>();
 
         // Define a file representing a PCM to load
 
         File repertoire = new File(directory);
 
-        // Collections.addAll(files, repertoire.listFiles()  ) ;
-        files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+        Collections.addAll(files, repertoire.listFiles()  ) ;
+       // files = (List<File>) PcmUtils.getPCMFiles(repertoire);
 
 
         // Create a loader that can handle the file format
         PCMLoader loader = new KMFJSONLoader();
-
+        System.out.println("Sixe = " +files.size());
         // Load the file
         // A loader may return multiple PCM containers depending on the input format
         // A PCM container encapsulates a PCM and its associated metadata
-        int i = 1 ;
+        int i = 0 ;
         for (File pcmFile : files) {
-            for (int ipcm = i ; ipcm < files.size() ; ipcm++ ){
+            for (int ipcm = i+1 ; ipcm < files.size() ; ipcm++ ){
+                System.out.println(ConsoleColors.RED +"i =" + i+ " - j = "+ipcm + ConsoleColors.RESET );
                 PCM pcmA = loader.load(pcmFile).get(0).getPcm();
                 PCM pcmB = loader.load(files.get(ipcm)).get(0).getPcm();
                 compareProduit(pcmA,pcmB);
+                compare.clear();
             }
             i++;
         }
+        isAll = false ;
     }
 
 
@@ -177,7 +181,7 @@ public class ComparePcm {
         for (String s:compare.keySet()){
             System.out.println("KEy : " + s + " - Value => " + compare.get(s));
         }
-        PcmUtils.createFile(compare, pcmA.getName()+"-"+pcmB.getName() );
+      if (!isAll) PcmUtils.createFile(compare, pcmA.getName()+"-"+pcmB.getName() );
     }
 
     /**
@@ -198,7 +202,7 @@ public class ComparePcm {
         ??? probleme d'unicite des product
          */
         for (Feature feature : features) {
-            if (productA.findCell(feature).equals(productB.findCell(feature))) {
+            if (productA.findCell(feature) == (productB.findCell(feature))) {
                 i++;
             }
         }

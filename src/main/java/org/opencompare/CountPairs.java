@@ -15,6 +15,7 @@ public class CountPairs {
     //hahMap for count binome
     HashMap<String, HashMap<String, Integer>> binomeMaster = new HashMap<>();
     HashMap<String, Integer> binome = new HashMap<>();
+    HashMap<String, Integer> binomeAux = new HashMap<>();
 
     int countPcm = 0 ;
 
@@ -57,12 +58,15 @@ public class CountPairs {
                     for (int i = 0; i < pcm.getConcreteFeatures().size() -1 ; i++) {
 
                         for (int j = i + 1; j < pcm.getConcreteFeatures().size(); j++) {
-                            generalCountCellsBinome(
-                                    "mypaire",(
-                                            " "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase()
-                                                    +" , "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent().toLowerCase()
-                                    )
+
+                            generalCountCellsBinomeAux(
+                                            product.findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase()
+                                                    +" , "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent().toLowerCase()+" "
                             );
+                            for (String s:binomeAux.keySet()){
+                                generalCountCellsBinome(s.replaceAll("\n"," "));
+                            }
+                            binomeAux.clear();
 
                         }
 
@@ -72,7 +76,7 @@ public class CountPairs {
 
             }
         }
-        PcmUtils.createFile(binome,"CountPairs");
+          PcmUtils.createFile(binomeMaster,"CountPairs");
         }
 
 
@@ -80,13 +84,19 @@ public class CountPairs {
     /**
      * cree de paire par ligne
      *
-     * @param binomme
      * @param content
      */
-    public void generalCountCellsBinome(String binomme, String content) {
+    public void generalCountCellsBinome( String content) {
 
-        binomeMaster.get(binomme).computeIfAbsent(content, val -> 0);
-        binomeMaster.get(binomme).computeIfPresent(content, (key, oldVal) -> oldVal + 1);
+        binome.computeIfAbsent(content, val -> 1);
+        binome.computeIfPresent(content, (key, oldVal) -> oldVal + 1);
+
+    }
+
+    public void generalCountCellsBinomeAux( String content) {
+
+        binomeAux.computeIfAbsent(content, val -> 0);
+
 
     }
 }
