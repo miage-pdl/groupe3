@@ -30,7 +30,7 @@ public class CountPairs {
 
         File repertoire = new File(directory);
 
-        // Collections.addAll(files, repertoire.listFiles()  ) ;
+
         files = (List<File>) PcmUtils.getPCMFiles(repertoire);
 
 
@@ -53,15 +53,15 @@ public class CountPairs {
                 // Browse the cells of the PCM
 
                 countPcm++ ;
-                System.out.println(ConsoleColors.CYAN_BACKGROUND +" <- "+countPcm+" -> New pcm "+ pcm.getConcreteFeatures().size() +ConsoleColors.RESET);
-                for (Product product : pcm.getProducts()) {
+                 for (Product product : pcm.getProducts()) {
                     for (int i = 0; i < pcm.getConcreteFeatures().size() -1 ; i++) {
 
                         for (int j = i + 1; j < pcm.getConcreteFeatures().size(); j++) {
                             generalCountCellsBinome(
                                     "mypaire",(
-                                            " "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent()
-                                                    +" , "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent())
+                                            " "+product.findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase()
+                                                    +" , "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent().toLowerCase()
+                                    )
                             );
 
                         }
@@ -72,13 +72,7 @@ public class CountPairs {
 
             }
         }
-        int i = 0;
-        for (String b : binomeMaster.get("mypaire").keySet()) {
-
-            System.out.println("<- "+ i +" -> "+ b.replaceAll("\n","") + " --> Count = " +binome.get(b)  );
-            i++;
-        }
-        PcmUtils.createFile(binomeMaster,"CountPairs");
+        PcmUtils.createFile(binome,"CountPairs");
         }
 
 
