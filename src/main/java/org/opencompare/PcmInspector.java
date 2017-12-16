@@ -242,7 +242,7 @@ public class PcmInspector {
         PcmInspector pcmInspector = new PcmInspector();
         PredominantFeature predominantFeature = new PredominantFeature();
         CountPairs countPairs = new CountPairs();
-        
+        ComparePcm comparePcm = new ComparePcm();
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         
         String defaultPath = "";
@@ -269,6 +269,7 @@ public class PcmInspector {
             pcmInspector.calculateStatistics(defaultPath);
             predominantFeature.getPredonimantFeatures(defaultPath);
             countPairs.getCountOfPaireValues(defaultPath);
+            comparePcm.compareAll(defaultPath);
         } catch (IOException e) {
             e.printStackTrace();
         }

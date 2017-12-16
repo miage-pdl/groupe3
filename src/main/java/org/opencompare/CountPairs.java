@@ -25,14 +25,14 @@ public class CountPairs {
 
         binomeMaster.put("mypaire", binome);
 
-        List<File> files = new ArrayList<>();
+
 
         // Define a file representing a PCM to load
 
         File repertoire = new File(directory);
 
 
-        files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+        List<File> files = (List<File>) PcmUtils.getPCMFiles(repertoire);
 
 
         // Create a loader that can handle the file format
@@ -61,7 +61,7 @@ public class CountPairs {
 
                             generalCountCellsBinomeAux(
                                             product.findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase()
-                                                    +" , "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent().toLowerCase()+" "
+                                                    +" + "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent().toLowerCase()+" "
                             );
                             for (String s:binomeAux.keySet()){
                                 generalCountCellsBinome(s.replaceAll("\n"," "));
@@ -76,7 +76,7 @@ public class CountPairs {
 
             }
         }
-          PcmUtils.createFile(binomeMaster,"CountPairs");
+          PcmUtils.createFile(binome,"CountPairs");
         }
 
 

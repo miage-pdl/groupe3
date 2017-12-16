@@ -30,14 +30,11 @@ public class ComparePcm {
 
     public void compareAll(String directory) throws IOException {
         isAll = true ;
-        List<File> files = new ArrayList<>();
 
         // Define a file representing a PCM to load
 
         File repertoire = new File(directory);
-
-        Collections.addAll(files, repertoire.listFiles()  ) ;
-       // files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+        List<File> files = (List<File>) PcmUtils.getPCMFiles(repertoire);
 
 
         // Create a loader that can handle the file format
@@ -58,6 +55,7 @@ public class ComparePcm {
             i++;
         }
         isAll = false ;
+
     }
 
 
@@ -181,7 +179,7 @@ public class ComparePcm {
         for (String s:compare.keySet()){
             System.out.println("KEy : " + s + " - Value => " + compare.get(s));
         }
-      if (!isAll) PcmUtils.createFile(compare, pcmA.getName()+"-"+pcmB.getName() );
+        if (!isAll) PcmUtils.createFile(compare, pcmA.getName()+"-"+pcmB.getName() );
     }
 
     /**
@@ -206,14 +204,7 @@ public class ComparePcm {
                 i++;
             }
         }
-        if (i != features.size()) {
-            if (i >= (features.size() / 2)) {
-                // System.out.println(ConsoleColors.BLUE + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
-            } else {
-                // System.out.println(ConsoleColors.RED + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
-            }
-        } else {
-            // System.out.println(ConsoleColors.GREEN + "taux  Correspondence Produit Parfait " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
+        if (i == features.size()) {
             return true;
         }
 
@@ -255,11 +246,7 @@ public class ComparePcm {
                         (productA.findCell(feature).getInterpretation())
                                 ==(
                                 (productB.findCell(feature).getInterpretation()))) {
-                    // System.out.println(i1 + " -> " + productA.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") + " | " + i2 + " -> " + productB.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, ""));
                     i++;
-                } else {
-                    // System.out.println(ConsoleColors.RED + i1 + " -> " + productA.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") + " | " + i2 + " -> " + productB.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") + ConsoleColors.RESET);
-
                 }
             }
         }
