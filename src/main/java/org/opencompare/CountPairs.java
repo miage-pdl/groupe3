@@ -19,6 +19,11 @@ public class CountPairs {
 
     int countPcm = 0 ;
 
+    /**
+     * Main method for the count pairs values in columns
+     * @param directory
+     * @throws IOException
+     */
     public void getCountOfPaireValues(String directory) throws IOException {
 
 
@@ -54,48 +59,59 @@ public class CountPairs {
                 // Browse the cells of the PCM
 
                 countPcm++ ;
-                 for (Product product : pcm.getProducts()) {
-                    for (int i = 0; i < pcm.getConcreteFeatures().size() -1 ; i++) {
+                for (int p = 0; p < 1 ; p++) {
+                    for (int i = 0; i <  pcm.getConcreteFeatures().size() ; i++){
+                       for (int j = 1; j <  pcm.getProducts().size(); j++) {
+                           if (! pcm.getProducts().get(p).findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase().trim().contentEquals(pcm.getProducts().get(j).findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase().trim())) {
+                               generalCountCellsBinomeAux(
+                                       pcm.getProducts().get(p).findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase()
+                                       , pcm.getProducts().get(j).findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase()
+                               );
+                           }
+                        }
+                        for (String s : binomeAux.keySet()) {
+                            String[] keys = s.split(",");
+                            generalCountCellsBinome(keys[0], keys[1]);
 
-                        for (int j = i + 1; j < pcm.getConcreteFeatures().size(); j++) {
-
-                            generalCountCellsBinomeAux(
-                                            product.findCell(pcm.getConcreteFeatures().get(i)).getContent().toLowerCase()
-                                                    +" + "+product.findCell(pcm.getConcreteFeatures().get(j)).getContent().toLowerCase()+" "
-                            );
-                            for (String s:binomeAux.keySet()){
-                                generalCountCellsBinome(s.replaceAll("\n"," "));
-                            }
-                            binomeAux.clear();
 
                         }
-
+                        binomeAux.clear();
                     }
                 }
 
 
             }
         }
-          PcmUtils.createFile(binome,"CountPairs");
-        }
-
+        PcmUtils.createFile(binome,"CountPairs");
+    }
 
 
     /**
-     * cree de paire par ligne
-     *
-     * @param content
+     * Add the number of times a pair of values has appeared in the inout data set
+     * @param keyA
+     * @param keyB
      */
-    public void generalCountCellsBinome( String content) {
-
-        binome.computeIfAbsent(content, val -> 1);
-        binome.computeIfPresent(content, (key, oldVal) -> oldVal + 1);
+    public void generalCountCellsBinome( String keyA, String keyB) {
+        if (!binome.containsKey(keyA+"+"+keyB)&&!binome.containsKey(keyB+"+"+keyA)){
+            binome.computeIfAbsent(keyA+"+"+keyB, val -> 1);
+        }else if(binome.containsKey(keyA+"+"+keyB)||binome.containsKey(keyB+"+"+keyA)){
+            if (binome.containsKey(keyA+"+"+keyB)){
+                binome.computeIfPresent(keyA+"+"+keyB, (key, oldVal) -> oldVal + 1);
+            }else if (binome.containsKey(keyB+"+"+keyA)){
+                binome.computeIfPresent(keyB+"+"+keyA, (key, oldVal) -> oldVal + 1);
+            }
+        }
 
     }
 
-    public void generalCountCellsBinomeAux( String content) {
-
-        binomeAux.computeIfAbsent(content, val -> 0);
+    /**
+     * Counts the times of a pair of values appears in a colummn, if the pairs has already appeared the method does not count that pair because is already counted
+     * @param content
+     * @param value
+     */
+    public void generalCountCellsBinomeAux( String content , String value) {
+        if (!binomeAux.containsKey(content+","+value)&&!binomeAux.containsKey(value+","+content))
+            binomeAux.computeIfAbsent(content +","+value, val -> 0);
 
 
     }

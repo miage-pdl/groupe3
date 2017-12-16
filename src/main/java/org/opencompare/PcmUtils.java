@@ -13,10 +13,23 @@ import org.apache.commons.io.FileUtils;
 public class PcmUtils {
     private static final String[] extensions = { "pcm" };
 
+    /**
+     * Imports into the program the data set to load
+     * @param directory
+     * @return
+     */
     public static Collection<File> getPCMFiles(File directory) {
         return FileUtils.listFiles(directory, extensions, true);
     }
 
+    /**
+     * Create the output file for the frequencies methods
+     * @param frequency
+     * @param frequencyName
+     * @param <K>
+     * @param <V>
+     * @throws IOException
+     */
     public static <K, V> void createFile(HashMap<K, V> frequency, String frequencyName) throws IOException {
 
         System.out.println("Writing frequence: " + frequencyName);

@@ -136,6 +136,11 @@ public class PcmInspector {
 
     }
 
+    /**
+     *  Count the frequencies of the features and also return the horizontal size of the PCM
+     * @param pcm
+     * @return
+     */
     public int getFeatureFrequencies(PCM pcm) {
     	
         int horizontalSize = pcm.getConcreteFeatures().size();
@@ -151,6 +156,11 @@ public class PcmInspector {
         
     }
 
+    /**
+     * Gets the frequencies for the cell's values
+     * @param pcm
+     * @param product
+     */
     public void getCellFrequeancies(PCM pcm, Product product) {
     	
         for (Feature feature : pcm.getConcreteFeatures()) {
@@ -174,6 +184,10 @@ public class PcmInspector {
 
     }
 
+    /**
+     * Gets the frequencies of the types in the cells of a PCM
+     * @param cell
+     */
     public void getCelltypeFrequencies(Cell cell) {
     	
         try {
@@ -189,6 +203,10 @@ public class PcmInspector {
         
     }
 
+    /**
+     * Gets the frequencies of products values inside a pcm
+     * @param product
+     */
     public void getFrequenciesByProduct(Product product) {
     	
         try {
@@ -204,6 +222,11 @@ public class PcmInspector {
         
     }
 
+    /**
+     * Returns the vertical size of a pcm
+     * @param pcm
+     * @return
+     */
     public int getCellandProductFrequencies(PCM pcm) {
     	
         int verticalSize = pcm.getProducts().size();
@@ -219,12 +242,24 @@ public class PcmInspector {
         
     }
 
+    /**
+     * Calculates the size of a matrix
+     * @param pcm
+     * @param verticalSize
+     * @param horizontalSize
+     */
     public void calculateMatrixSize(PCM pcm, int verticalSize, int horizontalSize) {
     	
         matrixSize.computeIfAbsent(pcm.getName(), val -> verticalSize+1 + "X" + horizontalSize);
         
     }
 
+    /**
+     * Verifies if the input directory to load the data set exist or not
+     * @param path
+     * @param flag
+     * @return
+     */
     public static boolean verifyPath(String path, boolean flag) {
     	
 		File f = new File(path);
@@ -237,6 +272,11 @@ public class PcmInspector {
     
     }
 
+    /**
+     * Main method of the program
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
     	
         PcmInspector pcmInspector = new PcmInspector();
