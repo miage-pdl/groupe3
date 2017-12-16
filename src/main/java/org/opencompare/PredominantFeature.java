@@ -55,13 +55,7 @@ public class PredominantFeature {
                 // Browse the cells of the PCM
 
                 countPcm++;
-                System.out.println(ConsoleColors.CYAN_BACKGROUND + " <- " + countPcm + " -> New pcm " + pcm.getConcreteFeatures().size() + ConsoleColors.RESET);
-
                 for (Feature feature : pcm.getConcreteFeatures()) {
-
-
-
-                  //  printA(feature.getName());
                     for (Product product : pcm.getProducts()) {
                         try {
                             // Calculate frequencies by type
@@ -69,8 +63,7 @@ public class PredominantFeature {
 
                             if (vl != null) {
                                 generalCountCellsType( vl.getClass().getName().replace(PCM_OBJECT_NAME, ""));
-                             //   printA(vl.getClass().getName().replace(PCM_OBJECT_NAME, ""));
-                            }
+                             }
                         } catch (Exception e) {
                             System.out.println(e);
                         }
@@ -91,10 +84,10 @@ public class PredominantFeature {
             }
         }
         type.clear();
-        affiche();
+        show();
     }
 
-    private void affiche() throws IOException {
+    private void show() throws IOException {
 
         System.out.println("Resultat Similarite: " );
         File fout = new File( "typePredoFeatures.csv");
@@ -111,8 +104,7 @@ public class PredominantFeature {
         for (HashMap<String, HashMap<String, Integer>> hashMapHashMap : allPredo) {
 
             String featuretab = hashMapHashMap.keySet().toString();
-        //   printA(featuretab.substring(1,featuretab.length()-1));
-            if (null != hashMapHashMap.values() ){
+             if (null != hashMapHashMap.values() ){
 
                 Collection<HashMap<String, Integer>> typss =  hashMapHashMap.values();
                 for (HashMap<String, Integer> typs : typss) {
@@ -121,7 +113,7 @@ public class PredominantFeature {
 
                     for (String s:typs.keySet()){
                       line += " , "+s+" , "+ typs.get(s);
-                        //printA(", "+s+" , "+typs.get(s));
+
                     }
                     bw.write(line);
                     bw.newLine();
@@ -130,9 +122,6 @@ public class PredominantFeature {
                 }
                 type.clear();
             }
-            System.out.println("");
-
-
 
         }
         bw.close();
