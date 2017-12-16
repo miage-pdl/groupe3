@@ -39,14 +39,12 @@ public class ComparePcm {
 
         // Create a loader that can handle the file format
         PCMLoader loader = new KMFJSONLoader();
-        System.out.println("Sixe = " +files.size());
-        // Load the file
+          // Load the file
         // A loader may return multiple PCM containers depending on the input format
         // A PCM container encapsulates a PCM and its associated metadata
         int i = 0 ;
         for (File pcmFile : files) {
             for (int ipcm = i+1 ; ipcm < files.size() ; ipcm++ ){
-                System.out.println(ConsoleColors.RED +"i =" + i+ " - j = "+ipcm + ConsoleColors.RESET );
                 PCM pcmA = loader.load(pcmFile).get(0).getPcm();
                 PCM pcmB = loader.load(files.get(ipcm)).get(0).getPcm();
                 compareProduit(pcmA,pcmB);
@@ -179,6 +177,7 @@ public class ComparePcm {
         for (String s:compare.keySet()){
             System.out.println("KEy : " + s + " - Value => " + compare.get(s));
         }
+
         if (!isAll) PcmUtils.createFile(compare, pcmA.getName()+"-"+pcmB.getName() );
     }
 

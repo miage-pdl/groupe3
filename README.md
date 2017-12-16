@@ -2,8 +2,8 @@
 
 Examples for using OpenCompare API and services
 
-## Import a PCM
-1- Define the file that you want to load.
+## Analyze a set of PCM
+1- Insert into the console the directory with all the files to analyze.
 
 2- Create a loader that can handle the file format. 
 In our example, we use the KMFJSONLoader which supports the internal representation of OpenCompare.
