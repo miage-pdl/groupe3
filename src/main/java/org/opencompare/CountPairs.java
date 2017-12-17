@@ -78,34 +78,36 @@ public class CountPairs {
                 for (int p = 0; p < 1; p++) {
                     for (int i = 0; i < pcm.getConcreteFeatures().size(); i++) {
                         for (int j = 1; j < pcm.getProducts().size(); j++) {
-                            if (!pcm.getProducts()
-                                    .get(p)
-                                    .findCell(pcm.getConcreteFeatures().get(i))
-                                    .getContent()
-                                    .toLowerCase()
-                                    .trim()
-                                    .contentEquals(pcm.getProducts()
-                                                      .get(j)
-                                                      .findCell(pcm.getConcreteFeatures().get(i))
-                                                      .getContent()
-                                                      .toLowerCase()
-                                                      .trim())) {
-                                generalCountCellsBinomeAux(pcm.getProducts()
-                                                              .get(p)
-                                                              .findCell(pcm.getConcreteFeatures().get(i))
-                                                              .getContent()
-                                                              .toLowerCase(),
-                                                           pcm.getProducts()
-                                                              .get(j)
-                                                              .findCell(pcm.getConcreteFeatures().get(i))
-                                                              .getContent()
-                                                              .toLowerCase());
+                            if (pcm.getProducts().get(p).findCell(pcm.getConcreteFeatures().get(i)) != null) {
+                                if (!pcm.getProducts()
+                                        .get(p)
+                                        .findCell(pcm.getConcreteFeatures().get(i))
+                                        .getContent()
+                                        .toLowerCase()
+                                        .trim()
+                                        .contentEquals(pcm.getProducts()
+                                                          .get(j)
+                                                          .findCell(pcm.getConcreteFeatures().get(i))
+                                                          .getContent()
+                                                          .toLowerCase()
+                                                          .trim())) {
+                                    generalCountCellsBinomeAux(pcm.getProducts()
+                                                                  .get(p)
+                                                                  .findCell(pcm.getConcreteFeatures().get(i))
+                                                                  .getContent()
+                                                                  .toLowerCase(),
+                                                               pcm.getProducts()
+                                                                  .get(j)
+                                                                  .findCell(pcm.getConcreteFeatures().get(i))
+                                                                  .getContent()
+                                                                  .toLowerCase());
+                                }
                             }
                         }
 
                         for (String s : binomeAux.keySet()) {
                             String[] keys = s.split("~");
-                            
+
                             if (keys.length == 1) {
                                 String[] temporal = new String[keys.length + 1];
 
@@ -126,3 +128,6 @@ public class CountPairs {
         PcmUtils.createFile(binome, "CountPairs");
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
