@@ -41,8 +41,8 @@ public class CountPairs {
      * @param value
      */
     public void generalCountCellsBinomeAux(String content, String value) {
-        if (!binomeAux.containsKey(content + "," + value) &&!binomeAux.containsKey(value + "," + content)) {
-            binomeAux.computeIfAbsent(content + "," + value, val -> 0);
+        if (!binomeAux.containsKey(content + "~" + value) &&!binomeAux.containsKey(value + "~" + content)) {
+            binomeAux.computeIfAbsent(content + "~" + value, val -> 0);
         }
     }
 
@@ -104,8 +104,8 @@ public class CountPairs {
                         }
 
                         for (String s : binomeAux.keySet()) {
-                            String[] keys = s.split(",");
-
+                            String[] keys = s.split("~");
+                            
                             if (keys.length == 1) {
                                 String[] temporal = new String[keys.length + 1];
 
