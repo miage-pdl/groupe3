@@ -11,16 +11,23 @@ import java.util.HashMap;
 
 import org.apache.commons.io.FileUtils;
 
+/**
+ * Class to create files with the information produced by the PCM Inspector.
+ *
+ * @author Group #3 PDL
+ * @version 1.0
+ * @since 2017-10-04
+ */
 public class PcmUtils {
     private static final String[] extensions = { "pcm" };
 
     /**
      * Create the output file for the frequencies methods
-     * @param frequency
-     * @param frequencyName
-     * @param <K>
-     * @param <V>
-     * @throws IOException
+     * @param frequency List of frequencies from the PCMs
+     * @param frequencyName Name of the frequency (key name)
+     * @param <K> Name of the frequency key
+     * @param <V> Value of the frequencies
+     * @throws IOException when isn't possible to write the file
      */
     public static <K, V> void createFile(HashMap<K, V> frequency, String frequencyName) throws IOException {
         System.out.println("Writing frequence: " + frequencyName);
@@ -41,8 +48,8 @@ public class PcmUtils {
 
     /**
      * Imports into the program the data set to load
-     * @param directory
-     * @return
+     * @param directory Path
+     * @return A list of files
      */
     public static Collection<File> getPCMFiles(File directory) {
         return FileUtils.listFiles(directory, extensions, true);

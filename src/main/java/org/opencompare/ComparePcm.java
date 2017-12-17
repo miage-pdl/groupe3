@@ -8,6 +8,13 @@ import org.opencompare.api.java.*;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
+/**
+ * Class to process and compares the PCM pair-to-pair
+ *
+ * @author Group #3 PDL
+ * @version 1.0
+ * @since 2017-10-04
+ */
 public class ComparePcm {
     public static final String PCM_OBJECT_NAME = "org.opencompare.api.java.impl.value.";
     private HashMap<Feature, Integer> featuresPCMA = new HashMap<>();
@@ -241,8 +248,6 @@ findbreak:
     /**
      * Compare two products by the key value for items who share the same feature 
      *
-     * @param i1
-     * @param i2
      * @param productA product A
      * @param productB product A
      * @param features Feature List

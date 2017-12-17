@@ -10,6 +10,13 @@ import org.opencompare.api.java.Product;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
+/**
+ * Class to analyze pair-to-pair the cell values, the products and features
+ *
+ * @author Group #3 PDL
+ * @version 1.0
+ * @since 2017-10-04
+ */
 public class CountPairs {
 
     // hahMap for count binome
@@ -20,8 +27,8 @@ public class CountPairs {
 
     /**
      * Add the number of times a pair of values has appeared in the inout data set
-     * @param keyA
-     * @param keyB
+     * @param keyA Key to compare with the second key (key pair-to-pair comparison)
+     * @param keyB Key to compare with the first key (key pair-to-pair comparison)
      */
     public void generalCountCellsBinome(String keyA, String keyB) {
         if (!binome.containsKey(keyA + "+" + keyB) &&!binome.containsKey(keyB + "+" + keyA)) {
@@ -37,8 +44,8 @@ public class CountPairs {
 
     /**
      * Counts the times of a pair of values appears in a colummn, if the pairs has already appeared the method does not count that pair because is already counted
-     * @param content
-     * @param value
+     * @param content Content of the cell (cell pair-to-pair comparison)
+     * @param value Content of a different cell (cell pair-to-pair comparison)
      */
     public void generalCountCellsBinomeAux(String content, String value) {
         if (!binomeAux.containsKey(content + "~" + value) &&!binomeAux.containsKey(value + "~" + content)) {
@@ -48,8 +55,8 @@ public class CountPairs {
 
     /**
      * Main method for the count pairs values in columns
-     * @param directory
-     * @throws IOException
+     * @param directory Path 
+     * @throws IOException when the files are not accessibles
      */
     public void getCountOfPaireValues(String directory) throws IOException {
         binomeMaster.put("mypaire", binome);

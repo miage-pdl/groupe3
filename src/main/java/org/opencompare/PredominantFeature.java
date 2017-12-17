@@ -10,8 +10,11 @@ import org.opencompare.api.java.io.PCMLoader;
 
 
 /**
- * Class to analize the predominant features
+ * Class to analyze the predominant features
  *
+ * @author Group #3 PDL
+ * @version 1.0
+ * @since 2017-10-04
  */
 public class PredominantFeature {
     public static final String PCM_OBJECT_NAME = "org.opencompare.api.java.impl.value.";
@@ -24,7 +27,7 @@ public class PredominantFeature {
     /**
      * Creates a pair by line
      *
-     * @param content
+     * @param content Cell information from a PCM
      */
     public void generalCountCellsType(String content) {
         type.computeIfAbsent(content, val -> 0);
@@ -73,8 +76,8 @@ public class PredominantFeature {
     }
 
     /**
-     * @param directory
-     * @throws IOException
+     * @param directory Path where the PCMs are saved
+     * @throws IOException when isn't possible access to the path
      */
     public void getPredonimantFeatures(String directory) throws IOException {
         List<File> files = new ArrayList<>();
