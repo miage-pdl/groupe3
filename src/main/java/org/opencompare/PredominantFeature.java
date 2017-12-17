@@ -8,6 +8,11 @@ import org.opencompare.api.java.*;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
+
+/**
+ * Class to analize the predominant features
+ *
+ */
 public class PredominantFeature {
     public static final String PCM_OBJECT_NAME = "org.opencompare.api.java.impl.value.";
     ArrayList<HashMap<String, HashMap<String, Integer>>> allPredo = new ArrayList<>();
@@ -17,7 +22,7 @@ public class PredominantFeature {
     int countPcm = 0;
 
     /**
-     * cree de paire par ligne
+     * Creates a pair by line
      *
      * @param content
      */
@@ -26,6 +31,9 @@ public class PredominantFeature {
         type.computeIfPresent(content, (key, oldVal) -> oldVal + 1);
     }
 
+    /**
+     * @throws IOException
+     */
     private void show() throws IOException {
         System.out.println("Resultat Similarite: ");
 
@@ -64,6 +72,10 @@ public class PredominantFeature {
         bw.close();
     }
 
+    /**
+     * @param directory
+     * @throws IOException
+     */
     public void getPredonimantFeatures(String directory) throws IOException {
         List<File> files = new ArrayList<>();
 

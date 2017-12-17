@@ -17,8 +17,10 @@ public class ComparePcm {
     private String[][] tabUnion = null;
     private boolean isAll = false;
 
-    /*
-     * recuperation des features
+    /**
+     * Method to recover the feature from the PCMs
+     * @param directory A path directory
+     * @throws IOException 
      */
     public void compareAll(String directory) throws IOException {
         isAll = true;
@@ -50,6 +52,10 @@ public class ComparePcm {
         isAll = false;
     }
 
+    /**
+     * @param pcmA One of the PCMs to compare
+     * @param pcmB A different PCM than pcmA that is compared with the first PCM (pcmA)
+     */
     public void compareFeature(PCM pcmA, PCM pcmB) {
         featuresPCMAB.clear();
 
@@ -107,6 +113,10 @@ public class ComparePcm {
         compare.put("Ensemble ", featuresPCMAB.size());
     }
 
+    /**
+     * @param pcmA One of the PCMs to compare
+     * @param pcmB A different PCM than pcmA that is compared with the first PCM (pcmA)
+     */
     public void compareProduit(PCM pcmA, PCM pcmB) throws IOException {
         compareFeature(pcmA, pcmB);
 
@@ -174,6 +184,16 @@ findbreak:
         }
     }
 
+    /**
+     * Compare two products by the type of cell 
+     *
+     * @param i1
+     * @param i2
+     * @param productA product A
+     * @param productB product B
+     * @param features Feature List
+     * @return true if exists a correspondence between them
+     */
     public Boolean compareTwoProducByTypeOfCell(int i1, int i2, Product productA, Product productB,
                                                 Set<Feature> features) {
         int i = 0;
@@ -220,14 +240,14 @@ findbreak:
     }
 
     /**
-     * Compare deux produits par la valeur des cells pour la quelle il partage le meme feature
+     * Compare two products by the key value for items who share the same feature 
      *
      * @param i1
      * @param i2
-     * @param productA produit A
-     * @param productB produit A
-     * @param features liste des features
-     * @return true si les produit Correspondence
+     * @param productA product A
+     * @param productB product A
+     * @param features Feature List
+     * @return true if exists a correspondence between them
      */
     public Boolean compareTwoProducts(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
         int i = 0;
