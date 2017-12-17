@@ -71,6 +71,14 @@ public class CountPairs {
                         }
                         for (String s : binomeAux.keySet()) {
                             String[] keys = s.split(",");
+                            if(keys.length == 1) {
+                            		String[] temporal = new String[keys.length+1];
+                            		temporal[0] = keys[0];
+                            		temporal[1] = null;
+                            		keys = temporal; 
+                            }
+                            		
+                            
                             generalCountCellsBinome(keys[0], keys[1]);
 
 
