@@ -20,7 +20,7 @@ public class ComparePcm {
     /**
      * Method to recover the feature from the PCMs
      * @param directory A path directory
-     * @throws IOException 
+     * @throws IOException when the path isn't accesible
      */
     public void compareAll(String directory) throws IOException {
         isAll = true;
@@ -116,6 +116,7 @@ public class ComparePcm {
     /**
      * @param pcmA One of the PCMs to compare
      * @param pcmB A different PCM than pcmA that is compared with the first PCM (pcmA)
+     * @throws IOException when there isn't possible access to the path
      */
     public void compareProduit(PCM pcmA, PCM pcmB) throws IOException {
         compareFeature(pcmA, pcmB);
@@ -144,7 +145,7 @@ findbreak:
                     for (Product product1 : productsA) {
                         i2++;
 
-                        if (compareTwoProducts(i1, i2, product, product1, localfeaturesPCMAB.keySet())) {
+                        if (compareTwoProducts(product, product1, localfeaturesPCMAB.keySet())) {
                             compare.computeIfPresent(product.getKeyContent(), (key, oldVal) -> oldVal + 1);
 
                             break;    // all analys
@@ -163,7 +164,7 @@ findbreak:
                     for (Product product1 : productsB) {
                         i2++;
 
-                        if (compareTwoProducts(i1, i2, product, product1, localfeaturesPCMAB.keySet())) {
+                        if (compareTwoProducts(product, product1, localfeaturesPCMAB.keySet())) {
                             compare.computeIfPresent(product.getKeyContent(), (key, oldVal) -> oldVal + 1);
 
                             break;
@@ -176,7 +177,7 @@ findbreak:
         }
 
         for (String s : compare.keySet()) {
-            System.out.println("KEy : " + s + " - Value => " + compare.get(s));
+            System.out.println("Key : " + s + " - Value => " + compare.get(s));
         }
 
         if (!isAll) {
@@ -187,14 +188,12 @@ findbreak:
     /**
      * Compare two products by the type of cell 
      *
-     * @param i1
-     * @param i2
      * @param productA product A
      * @param productB product B
      * @param features Feature List
      * @return true if exists a correspondence between them
      */
-    public Boolean compareTwoProducByTypeOfCell(int i1, int i2, Product productA, Product productB,
+    public Boolean compareTwoProducByTypeOfCell(Product productA, Product productB,
                                                 Set<Feature> features) {
         int i = 0;
 
@@ -249,7 +248,7 @@ findbreak:
      * @param features Feature List
      * @return true if exists a correspondence between them
      */
-    public Boolean compareTwoProducts(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
+    public Boolean compareTwoProducts(Product productA, Product productB, Set<Feature> features) {
         int i = 0;
 
         /*
