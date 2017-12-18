@@ -51,7 +51,7 @@ public class WikipediaMatrixAnalysisTest {
 		assertEquals(1,result);
 	}
 	@Test
-	public void testGetProoductsAndCellFrequeancies() {
+	public void testGetProoductsAndCellFrequeancies() throws  Exception {
 		pcmInspectorTest = new PcmInspector();
 		for (File file:files) {
 			File pcmFile = null;
@@ -78,7 +78,7 @@ public class WikipediaMatrixAnalysisTest {
                 () -> assertTrue(1 ==resultProdut));
 	}
     @Test
-	public void testGetSizeOfMatrix(){
+	public void testGetSizeOfMatrix() throws Exception{
         pcmInspectorTest = new PcmInspector();
         for (File file:files) {
             File pcmFile = null;
@@ -89,7 +89,7 @@ public class WikipediaMatrixAnalysisTest {
                 List<PCMContainer> pcmContainers = loader.load(pcmFile);
                 for (PCMContainer pcmContainer : pcmContainers) {
                     PCM pcm = pcmContainer.getPcm();
-                    pcmInspectorTest.calculateMatrixSize(pcm,pcmInspectorTest.getCellandProductFrequencies(pcm),pcmInspectorTest.getFeatureFrequencies(pcm));
+                    pcmInspectorTest.calculateMatrixSize(pcm.getName(),pcmInspectorTest.getCellandProductFrequencies(pcm),pcmInspectorTest.getFeatureFrequencies(pcm));
                 }
             } catch (IOException e) {
                 e.printStackTrace();

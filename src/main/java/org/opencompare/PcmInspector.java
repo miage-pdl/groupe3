@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.opencompare.api.java.Cell;
 import org.opencompare.api.java.Feature;
@@ -49,12 +48,12 @@ public class PcmInspector {
 
     /**
      * Calculates the size of a matrix
-     * @param pcm The PCM object which is going to be analyzed to found their size 
+     * @param pcm The PCM object which is going to be analyzed to found their size
      * @param verticalSize Quantity of products
      * @param horizontalSize Quantity of features
      */
-    public void calculateMatrixSize(PCM pcm, int verticalSize, int horizontalSize) {
-        matrixSize.computeIfAbsent(pcm.getName(), val -> verticalSize + 1 + "X" + horizontalSize);
+    public void calculateMatrixSize(String pcm, int verticalSize, int horizontalSize) {
+        matrixSize.computeIfAbsent(pcm, val -> verticalSize + 1 + "X" + horizontalSize);
     }
 
     public void calculateStatistics(String path) throws IOException {
@@ -89,8 +88,12 @@ public class PcmInspector {
                 horizontalSize = getFeatureFrequencies(pcm);
 
                 // Browse the cells of the PCM
-                verticalSize = getCellandProductFrequencies(pcm);
-                calculateMatrixSize(pcm, horizontalSize, verticalSize);
+                try{
+                    verticalSize = getCellandProductFrequencies(pcm);
+                }catch (Exception e){
+                    System.out.println(file.getName());
+                }
+                calculateMatrixSize(file.getName(), horizontalSize, verticalSize);
             }
         }
 
@@ -147,7 +150,7 @@ public class PcmInspector {
         PcmInspector pcmInspector = new PcmInspector();
         PredominantFeature predominantFeature = new PredominantFeature();
         CountPairs countPairs = new CountPairs();
-        ComparePcm comparePcm = new ComparePcm();
+        //  ComparePcm comparePcm = new ComparePcm();
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         String defaultPath = "";
         Boolean flag = false;
@@ -175,7 +178,7 @@ public class PcmInspector {
             pcmInspector.calculateStatistics(defaultPath);
             predominantFeature.getPredonimantFeatures(defaultPath);
             countPairs.getCountOfPaireValues(defaultPath);
-            comparePcm.compareAll(defaultPath);
+            // comparePcm.compareAll(defaultPath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -202,30 +205,22 @@ public class PcmInspector {
      * @param pcm A PCM object from the API
      * @param product A Product object from the API
      */
-    public void getCellFrequeancies(PCM pcm, Product product) {
+    public void getCellFrequeancies(PCM pcm, Product product) throws Exception {
         for (Feature feature : pcm.getConcreteFeatures()) {
 
             // Find the cell corresponding to the current feature and product
             Cell cell = product.findCell(feature);
-
-            getCelltypeFrequencies(cell);
-
             String content;
+            getCelltypeFrequencies(cell);
+            // Get information contained in the cell
+            content = cell.getContent();
 
-            try {
+            if (content != null) {
 
-                // Get information contained in the cell
-                content = cell.getContent();
-
-                if (content != null) {
-
-                    // Calculate frequencies by cells0
-                    generalCountCells("frequenciesCells", '"' + content + '"');
-                }
-            } catch (Exception e) {
-
-                // System.out.println("Error reading cell content");
+                // Calculate frequencies by cells0
+                generalCountCells("frequenciesCells", '"' + content + '"');
             }
+
         }
     }
 
@@ -234,7 +229,7 @@ public class PcmInspector {
      * @param pcm A PCM object from the API
      * @return the number of products
      */
-    public int getCellandProductFrequencies(PCM pcm) {
+    public int getCellandProductFrequencies(PCM pcm) throws Exception {
         int verticalSize = pcm.getProducts().size();
 
         for (Product product : pcm.getProducts()) {
@@ -251,20 +246,18 @@ public class PcmInspector {
      * Gets the frequencies of the types in the cells of a PCM
      * @param cell A single cell
      */
-    public void getCelltypeFrequencies(Cell cell) {
-        try {
+    public void getCelltypeFrequencies(Cell cell) throws Exception {
 
-            // Calculate frequencies by type
-            Value vl = cell.getInterpretation();
 
-            if (vl != null) {
-                String typeName = vl.getClass().getName().replace(PCM_OBJECT_NAME, "");
+        // Calculate frequencies by type
+        Value vl = cell.getInterpretation();
 
-                generalCountCells("frequenciesTypes", '"' + typeName + '"');
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+        if (vl != null) {
+            String typeName = vl.getClass().getName().replace(PCM_OBJECT_NAME, "");
+
+            generalCountCells("frequenciesTypes", '"' + typeName + '"');
         }
+
     }
 
     /**
