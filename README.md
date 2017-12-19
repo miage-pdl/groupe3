@@ -1,6 +1,6 @@
- # Wikipedia Matrix Analysis Group 3
+# Wikipedia Matrix Analysis Group 3
 
-##Objective 
+## Objective 
 The goal of this project is to help in the understanding of the properties of tabular data  inside Wikipedia.
 <br/><br/> With that being said through the analysis of data taken from wikipedia we search to answer a set of questions that will help to achieve our main goal.
 <br/><br/>The software here in this repository is the first step to answer all this questions, through the use of frequency counts and percentages, we can generate different outputs in csv extension, that can be used as an input to all kind of sort of statistical methods. 
@@ -9,8 +9,8 @@ The goal of this project is to help in the understanding of the properties of ta
 Les responses de chaque quest````ion ici!
 
 
-##Software license
-  Apache License version 2.0
+## Software license
+Apache License version 2.0
   
 ## Third party libraries 
 The following libraries are used for this software:
