@@ -44,8 +44,8 @@ is PcmUtils and its use is only to centralize utility methods.
 To execute this project its needed to have a valid Maven distribution installed in the computer.
 
 For get the jar file, it's necessary to go inside the command line to the path where resides the project,
-once located there, type the following command **mvn package**. The jar will be located inside the target folder.
+once located there, type the following command **mvn clean package assembly:single**. The jar will be located inside the target folder.
 
 It is suggested to copy the jar file and paste it in the project's directory root, if the default folder of PCM will be used, if it's not the case, you can skip the suggetion.
 
-For running the program inside the command line, type the following command  **java -jar WikipediaMatrixAnalysis-0.1.jar**.
+For running the program inside the command line, type the following command  **java -jar WikipediaMatrixAnalysis-0.1-jar-with-dependencies.jar**.
