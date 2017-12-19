@@ -130,9 +130,15 @@ public class ComparePcm {
             i++;
         }
         isAll = false ;
+        int ij = 1 ;
         for ( Integer is : Similarite.keySet() ) {
-            System.out.println( is +" , " + nameA.get(is)+" , "+nameB.get(is)+" , "+featuresA.get(is)+" , "+featuresB.get(is)+" , "+productsA.get(is)+" , "+productsB.get(is)+" , "+sameFeatures.get(is)+" , "+sameProducts.get(is) +" , "+ Similarite.get(is));
+            String u =  nameA.get(is)+" , "+nameB.get(is)+" , "+featuresA.get(is)+" , "+featuresB.get(is)+" , "+productsA.get(is)+" , "+productsB.get(is)+" , "+sameFeatures.get(is)+" , "+sameProducts.get(is) +" , "+ Similarite.get(is) ;
+            tabU.put(""+ij,u);
+            ij++ ;
         }
+
+        PcmUtils.createFile(tabU, "CompareaAll" );
+
     }
 
 
@@ -273,8 +279,6 @@ public class ComparePcm {
             value += "" + s +", "+ compare.get(s) + ", " ;
 
         }
-
-        tabU.put(""+intt,value) ;
 
 
         tabUnion.add(value) ;

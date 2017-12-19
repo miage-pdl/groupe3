@@ -6,7 +6,6 @@ import java.util.*;
 
 import org.opencompare.api.java.PCM;
 import org.opencompare.api.java.PCMContainer;
-import org.opencompare.api.java.Product;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
