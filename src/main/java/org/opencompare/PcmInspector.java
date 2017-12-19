@@ -91,7 +91,7 @@ public class PcmInspector {
                 try{
                     verticalSize = getCellandProductFrequencies(pcm);
                 }catch (Exception e){
-                    System.out.println(file.getName());
+
                 }
                 calculateMatrixSize(file.getName(), horizontalSize, verticalSize);
             }
@@ -218,7 +218,7 @@ public class PcmInspector {
             if (content != null) {
 
                 // Calculate frequencies by cells0
-                generalCountCells("frequenciesCells", '"' + content + '"');
+                generalCountCells("frequenciesCells", '"' + content.replace("\n", "").replace("\r", "") + '"');
             }
 
         }
@@ -255,7 +255,7 @@ public class PcmInspector {
         if (vl != null) {
             String typeName = vl.getClass().getName().replace(PCM_OBJECT_NAME, "");
 
-            generalCountCells("frequenciesTypes", '"' + typeName + '"');
+            generalCountCells("frequenciesTypes", '"' + typeName.replace("\n", "").replace("\r", "") + '"');
         }
 
     }
@@ -271,7 +271,7 @@ public class PcmInspector {
         // Calculate frequencies by features
         for (Feature feature : pcm.getConcreteFeatures()) {
             if (feature.getName() != null) {
-                generalCountCells("frequenciesFeatures", '"' + feature.getName() + '"');
+                generalCountCells("frequenciesFeatures", '"' + feature.getName().replace("\n", " ").replace("\r", "") + '"');
             } else {
                 generalCountCells("frequenciesFeatures", "null");
             }
@@ -287,7 +287,7 @@ public class PcmInspector {
     public void getFrequenciesByProduct(Product product) {
         try {
             if (product.getKeyContent() != null) {
-                generalCountCells("frequenciesProducts", '"' + product.getKeyContent() + '"');
+                generalCountCells("frequenciesProducts", '"' + product.getKeyContent().replace("\n", "").replace("\r", "") + '"');
             } else {
                 generalCountCells("frequenciesProducts", "null");
             }

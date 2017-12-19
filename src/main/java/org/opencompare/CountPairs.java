@@ -31,13 +31,13 @@ public class CountPairs {
      * @param keyB Key to compare with the first key (key pair-to-pair comparison)
      */
     public void generalCountCellsBinome(String keyA, String keyB) {
-        if (!binome.containsKey(keyA.trim() + "+" + keyB.trim()) &&!binome.containsKey(keyB.trim() + "+" + keyA.trim())) {
-            binome.computeIfAbsent(keyA.trim() + "+" + keyB.trim(), val -> 1);
-        } else if (binome.containsKey(keyA.trim() + "+" + keyB.trim()) || binome.containsKey(keyB.trim() + "+" + keyA.trim())) {
-            if (binome.containsKey(keyA.trim() + "+" + keyB.trim())) {
-                binome.computeIfPresent(keyA.trim() + "+" + keyB.trim(), (key, oldVal) -> oldVal + 1);
-            } else if (binome.containsKey(keyB.trim() + "+" + keyA.trim())) {
-                binome.computeIfPresent(keyB.trim() + "+" + keyA.trim(), (key, oldVal) -> oldVal + 1);
+        if (!binome.containsKey('"' + keyA.trim() + "+" + keyB.trim()+'"') &&!binome.containsKey('"' + keyB.trim() + "+" + keyA.trim()+'"')) {
+            binome.computeIfAbsent('"'+keyA.trim() + "+" + keyB.trim()+'"', val -> 1);
+        } else if (binome.containsKey('"'+keyA.trim() + "+" + keyB.trim()+'"') || binome.containsKey('"'+keyB.trim() + "+" + keyA.trim()+'"')) {
+            if (binome.containsKey('"'+keyA.trim() + "+" + keyB.trim()+'"')) {
+                binome.computeIfPresent('"'+keyA.trim() + "+" + keyB.trim()+'"', (key, oldVal) -> oldVal + 1);
+            } else if (binome.containsKey('"'+keyB.trim() + "+" + keyA.trim()+'"')) {
+                binome.computeIfPresent('"'+keyB.trim() + "+" + keyA.trim()+'"', (key, oldVal) -> oldVal + 1);
             }
         }
     }
@@ -102,12 +102,12 @@ public class CountPairs {
                                                                   .get(p)
                                                                   .findCell(pcm.getConcreteFeatures().get(i))
                                                                   .getContent()
-                                                                  .toLowerCase(),
+                                                                  .toLowerCase().trim().replace("\n", "").replace("\r",""),
                                                                pcm.getProducts()
                                                                   .get(j)
                                                                   .findCell(pcm.getConcreteFeatures().get(i))
                                                                   .getContent()
-                                                                  .toLowerCase());
+                                                                  .toLowerCase().trim().replace("\n", "").replace("\r",""));
                                 }
                             }
                         }
@@ -123,7 +123,7 @@ public class CountPairs {
                                 keys = temporal;
                             }
 
-                            generalCountCellsBinome(keys[0], keys[1]);
+                            generalCountCellsBinome(keys[0], keys[1].replace("\n", "").replace("\r",""));
                         }
 
                         binomeAux.clear();

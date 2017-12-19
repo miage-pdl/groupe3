@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.opencompare</OriginalElement>
+  <nodes>
+    <node x="0.0" y="180.0">org.opencompare.PredominantFeature</node>
+    <node x="797.5958333333334" y="0.0">org.opencompare.PcmUtils</node>
+    <node x="815.1791666666667" y="492.0">org.opencompare.PcmInspector</node>
+    <node x="444.00000000000006" y="147.0">org.opencompare.ComparePcm</node>
+    <node x="936.0" y="202.0">org.opencompare.CountPairs</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.opencompare.ComparePcm" target="org.opencompare.PcmUtils">
+      <point x="0.0" y="-147.5" />
+      <point x="680.0" y="127.0" />
+      <point x="902.2208333333334" y="127.0" />
+      <point x="-34.875" y="48.5" />
+    </edge>
+    <edge source="org.opencompare.PcmInspector" target="org.opencompare.PredominantFeature">
+      <point x="-169.60000000000002" y="-323.5" />
+      <point x="857.5791666666667" y="472.0" />
+      <point x="106.0" y="472.0" />
+      <point x="-106.0" y="114.5" />
+    </edge>
+    <edge source="org.opencompare.PcmInspector" target="org.opencompare.PcmUtils">
+      <point x="169.60000000000005" y="-323.5" />
+      <point x="1196.7791666666667" y="472.0" />
+      <point x="1342.5" y="472.0" />
+      <point x="1342.5" y="117.0" />
+      <point x="1041.7208333333333" y="117.0" />
+      <point x="104.625" y="48.5" />
+    </edge>
+    <edge source="org.opencompare.CountPairs" target="org.opencompare.PcmUtils">
+      <point x="0.0" y="-92.5" />
+      <point x="1134.0" y="127.0" />
+      <point x="971.9708333333334" y="127.0" />
+      <point x="34.875" y="48.5" />
+    </edge>
+    <edge source="org.opencompare.PcmInspector" target="org.opencompare.CountPairs">
+      <point x="1.1368683772161603E-13" y="-323.5" />
+      <point x="1027.1791666666668" y="472.0" />
+      <point x="1035.0" y="472.0" />
+      <point x="-99.0" y="92.5" />
+    </edge>
+    <edge source="org.opencompare.PredominantFeature" target="org.opencompare.PcmUtils">
+      <point x="0.0" y="-114.5" />
+      <point x="212.0" y="117.0" />
+      <point x="832.4708333333334" y="117.0" />
+      <point x="-104.625" y="48.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.31924072476272647" x="671.5" y="569.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
