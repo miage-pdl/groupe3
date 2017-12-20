@@ -37,7 +37,14 @@ public class PcmUtils {
         BufferedWriter bw2 = new BufferedWriter(new OutputStreamWriter(fos2));
 
         for (K key : frequency.keySet()) {
-            String data2 = key.toString() + "," + frequency.get(key).toString();
+
+            String data2 ="";
+            if (frequencyName.contentEquals("SizeMatrix")){
+
+                    data2 = frequency.get(key).toString();
+               }else {
+                data2  = key.toString() + "," + frequency.get(key).toString();
+            }
 
             bw2.write(data2);
             bw2.newLine();

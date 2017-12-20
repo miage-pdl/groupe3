@@ -53,7 +53,8 @@ public class PcmInspector {
      * @param horizontalSize Quantity of features
      */
     public void calculateMatrixSize(String pcm, int verticalSize, int horizontalSize, String size) {
-        matrixSize.computeIfAbsent(pcm, val ->  pcm + ',' + verticalSize + ',' + horizontalSize + ',' + size);
+        String result = '"'+ pcm+'"'+ ',' + verticalSize + ',' + horizontalSize + ',' + size;
+        matrixSize.computeIfAbsent(pcm, val -> result);
     }
 
     public void calculateStatistics(String path) throws IOException {
@@ -90,11 +91,13 @@ public class PcmInspector {
                 // Browse the cells of the PCM
                 try{
                     verticalSize = getCellandProductFrequencies(pcm);
+
+                    int size = horizontalSize * verticalSize;
+                    calculateMatrixSize(file.getName(), horizontalSize, verticalSize,Integer.toString(size) );
                 }catch (Exception e){
 
                 }
-                int size = horizontalSize * verticalSize;
-                calculateMatrixSize(file.getName(), horizontalSize, verticalSize,Integer.toString(size) );
+
             }
         }
 
@@ -294,7 +297,6 @@ public class PcmInspector {
             }
         } catch (Exception e) {
 
-            // System.out.println("Feature error");
         }
     }
 }

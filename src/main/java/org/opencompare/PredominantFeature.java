@@ -115,7 +115,7 @@ public class PredominantFeature {
                                 generalCountCellsType(vl.getClass().getName().replace(PCM_OBJECT_NAME, ""));
                             }
                         } catch (Exception e) {
-                            System.out.println(e);
+
                         }
                     }
 
