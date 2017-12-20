@@ -9,11 +9,12 @@ import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
 
 public class ComparePcmTest {
-    @Test
-    public void compareAll() throws Exception {
+    @org.junit.Test
+    public void compareAll1() throws Exception {
         ComparePcm comparePcm = new ComparePcm();
         comparePcm.compareAll("pcms/");
     }
+
 
 
     //PCM
@@ -40,7 +41,8 @@ public class ComparePcmTest {
             e.printStackTrace();
         }
         ComparePcm comparePcm = new ComparePcm();
-        comparePcm.compareFeature(pcmA,pcmB);
+       // comparePcm.compareFeature(pcmA,pcmB);
+        comparePcm.compareProduit(pcmA,pcmB);
 
     }
 

@@ -1,7 +1,6 @@
 package org.opencompare;
 
 
-import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
