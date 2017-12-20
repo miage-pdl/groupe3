@@ -98,8 +98,9 @@ public class WikipediaMatrixAnalysisTest {
 
 
         }
+        // we set this String to compare the output in manual analize we have check the value of columns 15, features 13 and the multiplication of both values
         HashMap<String, String> sizePcm = pcmInspectorTest.matrixSize;
-             assertEquals("16X13", sizePcm.get("Comparison_of_PVR_software_packages - Digital/Personal Video Recorder (DVR/PVR) features"));
+             assertEquals("Comparison_of_PVR_software_packages - Digital/Personal Video Recorder (DVR/PVR) features,15,13,195", sizePcm.get("Comparison_of_PVR_software_packages - Digital/Personal Video Recorder (DVR/PVR) features"));
 
     }
 }
