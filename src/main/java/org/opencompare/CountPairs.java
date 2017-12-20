@@ -101,12 +101,12 @@ public class CountPairs {
                                                                   .get(p)
                                                                   .findCell(pcm.getConcreteFeatures().get(i))
                                                                   .getContent()
-                                                                  .toLowerCase().trim().replace("\n", "").replace("\r","").replace(",",""),
+                                                                  .toLowerCase().trim().replace("\n", "").replace("\r",""),
                                                                pcm.getProducts()
                                                                   .get(j)
                                                                   .findCell(pcm.getConcreteFeatures().get(i))
                                                                   .getContent()
-                                                                  .toLowerCase().trim().replace("\n", "").replace("\r","").replace(",",""));
+                                                                  .toLowerCase().trim().replace("\n", "").replace("\r",""));
                                 }
                             }
                         }
@@ -118,11 +118,11 @@ public class CountPairs {
                                 String[] temporal = new String[keys.length + 1];
 
                                 temporal[0] = keys[0];
-                                temporal[1] = "";
+                                temporal[1] = "null";
                                 keys = temporal;
                             }
 
-                            generalCountCellsBinome(keys[0], keys[1].replace("\n", "").replace("\r",""));
+                            generalCountCellsBinome(keys[0], keys[1]);
                         }
 
                         binomeAux.clear();
