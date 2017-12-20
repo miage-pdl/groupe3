@@ -62,7 +62,6 @@ public class ComparePcm {
 
         // Create a loader that can handle the file format
         PCMLoader loader = new KMFJSONLoader();
-        System.out.println("Sixe = " +files.size());
         // Load the file
         // A loader may return multiple PCM containers depending on the input format
         // A PCM container encapsulates a PCM and its associated metadata
@@ -200,7 +199,6 @@ public class ComparePcm {
         namepcmB = pcmB.getName() ;
         nameA.put(intt,pcmA.getName());
         nameB.put(intt,pcmB.getName());
-     //   System.out.println("-------------->"+pcmB.getName());
         featuresA.put(intt ,""+pcmA.getConcreteFeatures().size());
         featuresB.put(intt ,""+pcmB.getConcreteFeatures().size());
 
@@ -233,7 +231,7 @@ public class ComparePcm {
 
         // Create a loader that can handle the file format
         PCMLoader loader = new KMFJSONLoader();
-        System.out.println("Sixe = " +files.size());
+
         // Load the file
         // A loader may return multiple PCM containers depending on the input format
         // A PCM container encapsulates a PCM and its associated metadata
@@ -244,7 +242,7 @@ public class ComparePcm {
                     PCM pcm = loader.load(pcmFile).get(0).getPcm();
                     if(pcm.getName().equals(pcm1)){
                         pcmA = pcm ;bt++;
-                        System.out.println("Trouver A");
+
 
                         a=true ;
                     }
@@ -255,7 +253,7 @@ public class ComparePcm {
                     PCM pcm= loader.load(pcmFile).get(0).getPcm();
                     if(pcm.getName().equals(pcm1)){
                         pcmB = pcm ;bt++;
-                        System.out.println("Trouver B");
+
                         b=true ;
                     }
                 } catch (IOException e) {
@@ -446,7 +444,7 @@ public class ComparePcm {
             try{
             if (productA.findCell(feature).equals(productB.findCell(feature))) {
                 i++;
-             //   System.out.println(" -> " + i);
+
             }
             }catch (NullPointerException e){
 
@@ -454,12 +452,10 @@ public class ComparePcm {
         }
         if (i != features.size()) {
             if (i >= (features.size() / 2)) {
-                // System.out.println(ConsoleColors.BLUE + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
             } else {
-                // System.out.println(ConsoleColors.RED + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
             }
         } else {
-            // System.out.println(ConsoleColors.GREEN + "taux  Correspondence Produit Parfait " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
+
 
             return 0;
         }
@@ -482,19 +478,14 @@ public class ComparePcm {
         String[] ss1 = null ;
         String[] ss2 = null ;
         for (Feature feature : features) {
-            System.out.println(" features  -> "+feature+" size : " +features.size());
             s1 =""+ productA.findCell(feature).getInterpretation() ;
-            System.out.println(" ?  -> "+s1.length());
             ss1 = s1.split("@");
             if (s1.length()>4){
-                System.out.println(" ?  -> "+ss1[0]);
-                System.out.println(" features  -> "+feature+" type : " +ss1[0].replace(PCM_OBJECT_NAME, "")+ " - "+ss1[1]);
             }
             s2 =""+ productB.findCell(feature).getInterpretation() ;
             ss2 = s2.split("@");
             if (ss2[0]!=null || ss2[0]!="null"){
 
-                System.out.println(" features  -> "+feature+" type : " +ss2[0].replace(PCM_OBJECT_NAME, "")+ " - "+ss2[1]);
             }
 
             if ((s1!=null) || (s2!=null)){
@@ -502,7 +493,6 @@ public class ComparePcm {
                         (productA.findCell(feature).getInterpretation())
                                 ==(
                                 (productB.findCell(feature).getInterpretation()))) {
-                    // System.out.println(i1 + " -> " + productA.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") + " | " + i2 + " -> " + productB.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, ""));
                     i++;
                 }
             }
