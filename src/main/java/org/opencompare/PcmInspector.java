@@ -150,7 +150,7 @@ public class PcmInspector {
         PcmInspector pcmInspector = new PcmInspector();
         PredominantFeature predominantFeature = new PredominantFeature();
         CountPairs countPairs = new CountPairs();
-        //  ComparePcm comparePcm = new ComparePcm();
+        ComparePcm comparePcm = new ComparePcm();
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         String defaultPath = "";
         Boolean flag = false;
@@ -178,7 +178,9 @@ public class PcmInspector {
             pcmInspector.calculateStatistics(defaultPath);
             predominantFeature.getPredonimantFeatures(defaultPath);
             countPairs.getCountOfPaireValues(defaultPath);
-            // comparePcm.compareAll(defaultPath);
+            comparePcm.compareAll(defaultPath);
+            comparePcm.findPcmAndCompare(defaultPath,"Comparison_of_file_comparison_tools_2","Comparison_of_VoIP_software_1");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -296,4 +298,6 @@ public class PcmInspector {
             // System.out.println("Feature error");
         }
     }
+
+
 }
