@@ -88,7 +88,9 @@ public class WikipediaMatrixAnalysisTest {
                 List<PCMContainer> pcmContainers = loader.load(pcmFile);
                 for (PCMContainer pcmContainer : pcmContainers) {
                     PCM pcm = pcmContainer.getPcm();
-                    pcmInspectorTest.calculateMatrixSize(pcm.getName(),pcmInspectorTest.getCellandProductFrequencies(pcm),pcmInspectorTest.getFeatureFrequencies(pcm));
+                    int sizeInt = pcmInspectorTest.getCellandProductFrequencies(pcm) * pcmInspectorTest.getFeatureFrequencies(pcm);
+                    String size = Integer.toString(sizeInt);
+                    pcmInspectorTest.calculateMatrixSize(pcm.getName(),pcmInspectorTest.getCellandProductFrequencies(pcm),pcmInspectorTest.getFeatureFrequencies(pcm),size);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

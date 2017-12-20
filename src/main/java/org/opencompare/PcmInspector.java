@@ -52,8 +52,8 @@ public class PcmInspector {
      * @param verticalSize Quantity of products
      * @param horizontalSize Quantity of features
      */
-    public void calculateMatrixSize(String pcm, int verticalSize, int horizontalSize) {
-        matrixSize.computeIfAbsent(pcm, val -> verticalSize + 1 + "X" + horizontalSize);
+    public void calculateMatrixSize(String pcm, int verticalSize, int horizontalSize, String size) {
+        matrixSize.computeIfAbsent(pcm, val ->  pcm + ',' + verticalSize + ',' + horizontalSize + ',' + size);
     }
 
     public void calculateStatistics(String path) throws IOException {
@@ -93,7 +93,8 @@ public class PcmInspector {
                 }catch (Exception e){
 
                 }
-                calculateMatrixSize(file.getName(), horizontalSize, verticalSize);
+                int size = horizontalSize * verticalSize;
+                calculateMatrixSize(file.getName(), horizontalSize, verticalSize,Integer.toString(size) );
             }
         }
 
