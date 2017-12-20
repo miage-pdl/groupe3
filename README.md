@@ -6,8 +6,21 @@ The goal of this project is to help in the understanding of the properties of ta
 <br/><br/>The software here in this repository is the first step to answer all this questions, through the use of frequency counts and percentages, we can generate different outputs in csv extension, that can be used as an input to all kind of sort of statistical methods. 
 
 ## Results
-Les responses de chaque quest````ion ici!
+The answers to question is located on the folder <i>Analyse</i>:
+Analyse.docx
+PCMs Analyse.xlsx
 
+Le resultat du analyse automatique:
+CountPairs.csv
+Cells.csv
+typePredoFeatures.csv
+Products.csv
+CountPaire.xlsx
+Features.csv
+SizeMatrix.csv
+
+## To execute
+Run the main class <i>PcmInspector.java</i>, this software will generate a set of CSVs file which are going to contain the analysed information from the PCMs (absolute frequence of the number of cells, feature, products, pair-to-pair analysis, etc). That information has been post-processed and is saved on the folder <i>analyse</i>.
 
 ## Software license
 Apache License version 2.0
