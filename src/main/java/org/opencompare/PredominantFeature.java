@@ -38,7 +38,7 @@ public class PredominantFeature {
      * @throws IOException
      */
     private void show() throws IOException {
-        System.out.println("Resultat Similarite: ");
+
 
         File fout = new File("typePredoFeatures.csv");
         FileOutputStream fos = null;

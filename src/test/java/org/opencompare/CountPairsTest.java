@@ -17,8 +17,8 @@ public class CountPairsTest {
         CountPairs countPairs = new CountPairs();
         countPairs.getCountOfPaireValues("pcmTest");
        HashMap<String, Integer> prueba = countPairs.binome;
-       assertEquals(new Integer(8),prueba.get("yes+no"));
-       assertEquals(new Integer(8),prueba.get("yes+?"));
+       assertEquals(new Integer(8),prueba.get('"'+"yes+no"+'"'));
+       assertEquals(new Integer(8),prueba.get('"'+"yes+?"+'"'));
     }
 
 }

@@ -102,7 +102,7 @@ public class CountPairs {
                                                                   .findCell(pcm.getConcreteFeatures().get(i))
                                                                   .getContent()
                                                                   .toLowerCase().trim().replace("\n", "").replace("\r",""),
-                                                               pcm.getProducts()
+                                            pcm.getProducts()
                                                                   .get(j)
                                                                   .findCell(pcm.getConcreteFeatures().get(i))
                                                                   .getContent()

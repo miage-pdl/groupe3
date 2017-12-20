@@ -42,7 +42,10 @@ public class PcmUtils {
             if (frequencyName.contentEquals("SizeMatrix")){
 
                     data2 = frequency.get(key).toString();
-               }else {
+               }else if(frequencyName.contentEquals("CountPairs") ){
+                data2  = "'"+key.toString() +"'"+ "," + frequency.get(key).toString();
+            }else{
+
                 data2  = key.toString() + "," + frequency.get(key).toString();
             }
 
