@@ -183,7 +183,7 @@ public class PcmInspector {
             predominantFeature.getPredonimantFeatures(defaultPath);
             countPairs.getCountOfPaireValues(defaultPath);
             comparePcm.compareAll(defaultPath);
-            comparePcm.findPcmAndCompare(defaultPath,"Comparison_of_file_comparison_tools_2","Comparison_of_VoIP_software_1");
+            comparePcm.findPcmAndCompare(defaultPath,"QList_of_Nvidia_graphics_processing_units - GeForce 500M (5xxM) Series","List_of_Nvidia_graphics_processing_units - GeForce 900M (9xxM) Series");
 
         } catch (IOException e) {
             e.printStackTrace();

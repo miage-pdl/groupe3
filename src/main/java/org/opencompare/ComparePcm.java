@@ -213,7 +213,7 @@ public class ComparePcm {
 
     }
 
-    public void findPcmAndCompare(String directory, String pcm1, String pcm2){
+    public boolean findPcmAndCompare(String directory, String pcm1, String pcm2){
         String iuu =  "nom pcm A , nom pcm A , Nb Features A ,  Nb Features B  ,  Nb Prodcut A  , Nb Prodcut B ,Nb Same Feature A , Nb Same Product , Symilarite " ;
         tabU.put(""+0,iuu);
         List<File> files = new ArrayList<>();
@@ -326,12 +326,16 @@ public class ComparePcm {
                ij++ ;
            }
 
+
            PcmUtils.createFile(tabU, "CompareaAll" );
+           if (Similarite.get(0)=="similary" ){
+               return false ;
+           }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
+            return false ;
     }
 
 
@@ -446,7 +450,6 @@ public class ComparePcm {
             try{
             if (productA.findCell(feature).equals(productB.findCell(feature))) {
                 i++;
-             //   System.out.println(" -> " + i);
             }
             }catch (NullPointerException e){
 
@@ -454,12 +457,8 @@ public class ComparePcm {
         }
         if (i != features.size()) {
             if (i >= (features.size() / 2)) {
-                // System.out.println(ConsoleColors.BLUE + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
-            } else {
-                // System.out.println(ConsoleColors.RED + "taux  Correspondence Produit " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
             }
         } else {
-            // System.out.println(ConsoleColors.GREEN + "taux  Correspondence Produit Parfait " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
 
             return 0;
         }
@@ -467,50 +466,5 @@ public class ComparePcm {
         return 1;
 
     }
-
-
-    public Boolean compareTwoProducByTypeOfCell(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
-        int i = 0;
-
-        /*
-        pour ameliorer on peut retirer les produits deja trouver
-        Mais si un produit existe en deux examplaires ??? on fais quoi ??
-        ??? probleme d'unicite des product
-         */
-        String s1 = "" ;
-        String s2 = ""+null ;
-        String[] ss1 = null ;
-        String[] ss2 = null ;
-        for (Feature feature : features) {
-            System.out.println(" features  -> "+feature+" size : " +features.size());
-            s1 =""+ productA.findCell(feature).getInterpretation() ;
-            System.out.println(" ?  -> "+s1.length());
-            ss1 = s1.split("@");
-            if (s1.length()>4){
-                System.out.println(" ?  -> "+ss1[0]);
-                System.out.println(" features  -> "+feature+" type : " +ss1[0].replace(PCM_OBJECT_NAME, "")+ " - "+ss1[1]);
-            }
-            s2 =""+ productB.findCell(feature).getInterpretation() ;
-            ss2 = s2.split("@");
-            if (ss2[0]!=null || ss2[0]!="null"){
-
-                System.out.println(" features  -> "+feature+" type : " +ss2[0].replace(PCM_OBJECT_NAME, "")+ " - "+ss2[1]);
-            }
-
-            if ((s1!=null) || (s2!=null)){
-                if (
-                        (productA.findCell(feature).getInterpretation())
-                                ==(
-                                (productB.findCell(feature).getInterpretation()))) {
-                    // System.out.println(i1 + " -> " + productA.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, "") + " | " + i2 + " -> " + productB.findCell(feature).getInterpretation().getClass().getName().replace(PCM_OBJECT_NAME, ""));
-                    i++;
-                }
-            }
-        }
-
-        return false;
-
-    }
-
 
 }
