@@ -44,6 +44,9 @@ public class ComparePcm {
      */
 
     public void compareAll(String directory) throws IOException {
+
+        String iuu =  "nom pcm A , nom pcm A , Nb Features A ,  Nb Features B  ,  Nb Prodcut A  , Nb Prodcut B ,Nb Same Feature A , Nb Same Product , Symilarite " ;
+        tabU.put(""+0,iuu);
         isAll = true ;
         List<File> files = new ArrayList<>();
 
@@ -303,10 +306,16 @@ public class ComparePcm {
         ??? probleme d'unicite des product
          */
         for (Feature feature : features) {
+            try{
+
+
 
             if (productA.findCell(feature).equals(productB.findCell(feature))) {
                 i++;
              //   System.out.println(" -> " + i);
+            }
+            }catch (NullPointerException e){
+                System.out.println("Le PCM " + intt + " n'est as comforme sur c'est valeur => " + i1 + " <> " + i2);
             }
         }
         if (i != features.size()) {
