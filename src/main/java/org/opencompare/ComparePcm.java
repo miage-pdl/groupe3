@@ -33,6 +33,8 @@ public class ComparePcm {
     private HashMap<String, String> tabU = new HashMap<>();
     private ArrayList<String> tabUnion = new ArrayList<>() ;
     int intt  =  1 ;
+    String namepcmA = "" ;
+    String namepcmB = "" ;
 
 
     public static final String PCM_OBJECT_NAME = "org.opencompare.api.java.impl.value.";
@@ -44,9 +46,9 @@ public class ComparePcm {
      */
 
     public void compareAll(String directory) throws IOException {
-
         String iuu =  "nom pcm A , nom pcm A , Nb Features A ,  Nb Features B  ,  Nb Prodcut A  , Nb Prodcut B ,Nb Same Feature A , Nb Same Product , Symilarite " ;
         tabU.put(""+0,iuu);
+
         isAll = true ;
         List<File> files = new ArrayList<>();
 
@@ -194,6 +196,8 @@ public class ComparePcm {
             }
         }
         compare.put(pcmB.getName(),ei);
+        namepcmA = pcmA.getName() ;
+        namepcmB = pcmB.getName() ;
         nameA.put(intt,pcmA.getName());
         nameB.put(intt,pcmB.getName());
      //   System.out.println("-------------->"+pcmB.getName());
@@ -205,6 +209,127 @@ public class ComparePcm {
 
         compare.put(" Ensemble ",featuresPCMAB.size());
 
+
+
+    }
+
+    public void findPcmAndCompare(String directory, String pcm1, String pcm2){
+        String iuu =  "nom pcm A , nom pcm A , Nb Features A ,  Nb Features B  ,  Nb Prodcut A  , Nb Prodcut B ,Nb Same Feature A , Nb Same Product , Symilarite " ;
+        tabU.put(""+0,iuu);
+        List<File> files = new ArrayList<>();
+        PCM pcmA = null ;
+        PCM pcmB = null ;
+        int bt = 0 ;
+        boolean a = false ;
+        boolean b = false ;
+
+        // Define a file representing a PCM to load
+
+        File repertoire = new File(directory);
+
+        Collections.addAll(files, repertoire.listFiles()  ) ;
+        // files = (List<File>) PcmUtils.getPCMFiles(repertoire);
+
+
+        // Create a loader that can handle the file format
+        PCMLoader loader = new KMFJSONLoader();
+        System.out.println("Sixe = " +files.size());
+        // Load the file
+        // A loader may return multiple PCM containers depending on the input format
+        // A PCM container encapsulates a PCM and its associated metadata
+        int i = 0 ;
+        for (File pcmFile : files) {
+            for (int ipcm = i+1 ; ipcm < files.size() ; ipcm++ ){
+               if(!a) {try {
+                    PCM pcm = loader.load(pcmFile).get(0).getPcm();
+                    if(pcm.getName().equals(pcm1)){
+                        pcmA = pcm ;bt++;
+                        System.out.println("Trouver A");
+
+                        a=true ;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }}
+               if (!b){try {
+                    PCM pcm= loader.load(pcmFile).get(0).getPcm();
+                    if(pcm.getName().equals(pcm1)){
+                        pcmB = pcm ;bt++;
+                        System.out.println("Trouver B");
+                        b=true ;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }}
+            }
+        }
+
+       if (bt>=2)try {
+            this.compareProduit(pcmA,pcmB);
+           if (Integer.valueOf(sameFeatures.get(intt)) != 0 ){
+               if (pcmA.getFeatures().size() == pcmB.getFeatures().size() ){
+                   if (pcmA.getProducts().size() == pcmB.getProducts().size()){
+                       if (Integer.valueOf(sameProducts.get(intt)) == pcmB.getProducts().size() ){
+                           Similarite.put(intt , "similary") ;
+                       }else {
+                           Similarite.put(intt , "different") ;
+                       }
+                   }else
+                   if (pcmA.getProducts().size() > pcmB.getProducts().size()){
+                       if (Integer.valueOf(sameProducts.get(intt)) == pcmB.getProducts().size() ){
+                           Similarite.put(intt , "B is included in A ") ;
+                       }else {
+                           Similarite.put(intt , "different") ;
+                       }
+                   }else {
+                       Similarite.put(intt , "different") ;
+                   }
+               }else
+               if (pcmA.getFeatures().size() > pcmB.getFeatures().size() ){
+                   if (pcmA.getProducts().size() == pcmB.getProducts().size()){
+                       if (Integer.valueOf(sameProducts.get(intt)) == pcmB.getProducts().size() ){
+                           Similarite.put(intt , "B is included in A on features of B ") ;
+                       }else {
+                           Similarite.put(intt , "different") ;
+                       }
+                   }else
+                   if (pcmA.getProducts().size() > pcmB.getProducts().size()){
+                       if (Integer.valueOf(sameProducts.get(intt)) == pcmB.getProducts().size() ){
+                           Similarite.put(intt , "B is included in A ") ;
+                       }else {
+                           Similarite.put(intt , "different") ;
+                       }
+                   }else {
+                       Similarite.put(intt , "different") ;
+                   }
+               } else
+               if (pcmA.getFeatures().size() < pcmB.getFeatures().size() ){
+                   if (pcmA.getProducts().size() <= pcmB.getProducts().size()){
+                       if (Integer.valueOf(sameProducts.get(intt)) == pcmA.getProducts().size() ){
+                           Similarite.put(intt , "A is included in B ") ;
+                       }else {
+                           Similarite.put(intt , "different") ;
+                       }
+                   }else {
+                       Similarite.put(intt , "different") ;
+                   }
+               }
+
+
+           }else {
+               Similarite.put(intt , "different") ;
+           }
+           int ij = 1 ;
+           for ( Integer is : Similarite.keySet() ) {
+               String u =  nameA.get(is)+" , "+nameB.get(is)+" , "+featuresA.get(is)+" , "+featuresB.get(is)+" , "+productsA.get(is)+" , "+productsB.get(is)+" , "+sameFeatures.get(is)+" , "+sameProducts.get(is) +" , "+ Similarite.get(is) ;
+               tabU.put(""+ij,u);
+               ij++ ;
+           }
+
+           PcmUtils.createFile(tabU, "CompareaAll" );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -240,7 +365,7 @@ public class ComparePcm {
                     for (Product product1 : productsA) {
                         i2++;
 
-                        if ( compareTwoProducts(i1,i2,product,product1,localfeaturesPCMAB.keySet())){
+                        if ( 0 == compareTwoProducts(i1,i2,product,product1,localfeaturesPCMAB.keySet())){
 
 
                             sameProducts.computeIfPresent(intt, (key, oldVal) -> oldVal + 1);
@@ -261,7 +386,7 @@ public class ComparePcm {
 
                     for (Product product1 : productsB) {
                         i2++;
-                        if ( compareTwoProducts(i1, i2, product,product1,localfeaturesPCMAB.keySet())){
+                        if ( 0 == compareTwoProducts(i1, i2, product,product1,localfeaturesPCMAB.keySet())){
                             compareVal.computeIfPresent(product.getKeyContent(), (key, oldVal) -> oldVal + 1);
 
 
@@ -298,7 +423,7 @@ public class ComparePcm {
      * @param features liste des features
      * @return true si les produit Correspondence
      */
-    public Boolean compareTwoProducts(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
+    public int compareTwoProducts(int i1, int i2, Product productA, Product productB, Set<Feature> features) {
         int i = 0;
         /*
         pour ameliorer on peut retirer les produits deja trouver
@@ -306,16 +431,25 @@ public class ComparePcm {
         ??? probleme d'unicite des product
          */
         for (Feature feature : features) {
+
             try{
+                productA.findCell(feature).getInterpretation().toString() ;
+            }catch (NullPointerException e){
+                return 2;
+            }
+            try{
+                productB.findCell(feature).getInterpretation().toString() ;
+            }catch (NullPointerException e){
+                return 2;
+            }
 
-
-
+            try{
             if (productA.findCell(feature).equals(productB.findCell(feature))) {
                 i++;
              //   System.out.println(" -> " + i);
             }
             }catch (NullPointerException e){
-                System.out.println("Le PCM " + intt + " n'est as comforme sur c'est valeur => " + i1 + " <> " + i2);
+
             }
         }
         if (i != features.size()) {
@@ -327,10 +461,10 @@ public class ComparePcm {
         } else {
             // System.out.println(ConsoleColors.GREEN + "taux  Correspondence Produit Parfait " + i1 + " Produit =" + i2 + " => " + i + " / " + features.size() + ConsoleColors.RESET);
 
-            return true;
+            return 0;
         }
 
-        return false;
+        return 1;
 
     }
 
