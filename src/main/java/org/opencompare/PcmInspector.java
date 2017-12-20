@@ -205,7 +205,7 @@ public class PcmInspector {
      * Gets the frequencies for the cell's values
      * @param pcm A PCM object from the API
      * @param product A Product object from the API
-     */
+     */ 
     public void getCellFrequeancies(PCM pcm, Product product) throws Exception {
         for (Feature feature : pcm.getConcreteFeatures()) {
 
@@ -219,7 +219,7 @@ public class PcmInspector {
             if (content != null) {
 
                 // Calculate frequencies by cells0
-                generalCountCells("frequenciesCells", '"' + content.replace("\n", "").replace("\r", "") + '"');
+                generalCountCells("frequenciesCells", '"' + content.replace("\n", "").replace("\r", "").replace("\"", "") + '"');
             }
 
         }
@@ -256,7 +256,7 @@ public class PcmInspector {
         if (vl != null) {
             String typeName = vl.getClass().getName().replace(PCM_OBJECT_NAME, "");
 
-            generalCountCells("frequenciesTypes", '"' + typeName.replace("\n", "").replace("\r", "") + '"');
+            generalCountCells("frequenciesTypes", '"' + typeName.replace("\n", "").replace("\r", "").replace("\"", "") + '"');
         }
 
     }
@@ -272,7 +272,7 @@ public class PcmInspector {
         // Calculate frequencies by features
         for (Feature feature : pcm.getConcreteFeatures()) {
             if (feature.getName() != null) {
-                generalCountCells("frequenciesFeatures", '"' + feature.getName().replace("\n", " ").replace("\r", "") + '"');
+                generalCountCells("frequenciesFeatures", '"' + feature.getName().replace("\n", " ").replace("\r", "").replace("\"", "") + '"');
             } else {
                 generalCountCells("frequenciesFeatures", "null");
             }
@@ -288,7 +288,7 @@ public class PcmInspector {
     public void getFrequenciesByProduct(Product product) {
         try {
             if (product.getKeyContent() != null) {
-                generalCountCells("frequenciesProducts", '"' + product.getKeyContent().replace("\n", "").replace("\r", "") + '"');
+                generalCountCells("frequenciesProducts", '"' + product.getKeyContent().replace("\n", "").replace("\r", "").replace("\"", "") + '"');
             } else {
                 generalCountCells("frequenciesProducts", "null");
             }
