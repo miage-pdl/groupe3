@@ -52,8 +52,8 @@ public class PcmInspector {
      * @param verticalSize Quantity of products
      * @param horizontalSize Quantity of features
      */
-    public void calculateMatrixSize(String pcm, int verticalSize, int horizontalSize) {
-        matrixSize.computeIfAbsent(pcm, val -> verticalSize + 1 + "X" + horizontalSize);
+    public void calculateMatrixSize(String pcm, int verticalSize, int horizontalSize, String size) {
+        matrixSize.computeIfAbsent(pcm, val ->  pcm + ',' + verticalSize + ',' + horizontalSize + ',' + size);
     }
 
     public void calculateStatistics(String path) throws IOException {
@@ -93,7 +93,8 @@ public class PcmInspector {
                 }catch (Exception e){
 
                 }
-                calculateMatrixSize(file.getName(), horizontalSize, verticalSize);
+                int size = horizontalSize * verticalSize;
+                calculateMatrixSize(file.getName(), horizontalSize, verticalSize,Integer.toString(size) );
             }
         }
 
@@ -206,7 +207,7 @@ public class PcmInspector {
      * Gets the frequencies for the cell's values
      * @param pcm A PCM object from the API
      * @param product A Product object from the API
-     */
+     */ 
     public void getCellFrequeancies(PCM pcm, Product product) throws Exception {
         for (Feature feature : pcm.getConcreteFeatures()) {
 
@@ -220,7 +221,7 @@ public class PcmInspector {
             if (content != null) {
 
                 // Calculate frequencies by cells0
-                generalCountCells("frequenciesCells", '"' + content.replace("\n", "").replace("\r", "") + '"');
+                generalCountCells("frequenciesCells", '"' + content.replace("\n", "").replace("\r", "").replace("\"", "") + '"');
             }
 
         }
@@ -257,7 +258,7 @@ public class PcmInspector {
         if (vl != null) {
             String typeName = vl.getClass().getName().replace(PCM_OBJECT_NAME, "");
 
-            generalCountCells("frequenciesTypes", '"' + typeName.replace("\n", "").replace("\r", "") + '"');
+            generalCountCells("frequenciesTypes", '"' + typeName.replace("\n", "").replace("\r", "").replace("\"", "") + '"');
         }
 
     }
@@ -273,7 +274,7 @@ public class PcmInspector {
         // Calculate frequencies by features
         for (Feature feature : pcm.getConcreteFeatures()) {
             if (feature.getName() != null) {
-                generalCountCells("frequenciesFeatures", '"' + feature.getName().replace("\n", " ").replace("\r", "") + '"');
+                generalCountCells("frequenciesFeatures", '"' + feature.getName().replace("\n", " ").replace("\r", "").replace("\"", "") + '"');
             } else {
                 generalCountCells("frequenciesFeatures", "null");
             }
@@ -289,7 +290,7 @@ public class PcmInspector {
     public void getFrequenciesByProduct(Product product) {
         try {
             if (product.getKeyContent() != null) {
-                generalCountCells("frequenciesProducts", '"' + product.getKeyContent().replace("\n", "").replace("\r", "") + '"');
+                generalCountCells("frequenciesProducts", '"' + product.getKeyContent().replace("\n", "").replace("\r", "").replace("\"", "") + '"');
             } else {
                 generalCountCells("frequenciesProducts", "null");
             }
